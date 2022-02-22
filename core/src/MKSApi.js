@@ -190,6 +190,19 @@ MkSAPI.prototype.AppendModule = function(name) {
 	window.ApplicationModules.Count++;
 }
 
+MkSAPI.prototype.GetModuleUI = function(name, callback) {
+	var self = this;
+	this.GetResourceContent({
+		"file_path": "modules/"+name
+	}, function(res, error) {
+		// Get payload
+        var payload = res.payload;
+		// Get HTML content
+        var html = self.ConvertHEXtoString(payload.content);
+		callback(html);
+	});
+}
+
 MkSAPI.prototype.GetModules = function(name) {
 	for (key in window.ApplicationModules.ModulesPathList) {
 		this.LoadModule(window.ApplicationModules.ModulesPathList[key]);
@@ -200,7 +213,7 @@ MkSAPI.prototype.LoadModule = function(name) {
 	var self = this;
 	this.GetResourceContent({
 		"file_path": "modules/"+name
-	}, function(res) {
+	}, function(res, error) {
 		var payload = res.payload;
 		var js = self.ConvertHEXtoString(payload.content);
 		// Inject into DOM
