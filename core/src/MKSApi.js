@@ -165,6 +165,10 @@ MkSAPI.prototype.GetFileContent = function (payload, callback) {
 	this.SendPacket("get_file", payload, callback);
 }
 
+MkSAPI.prototype.GetResourceContent = function (payload, callback) {
+	this.SendPacket("get_resource", payload, callback);
+}
+
 MkSAPI.prototype.UploadFileContent = function (payload, callback) {
 	this.SendPacket("upload_file", payload, callback);
 }
@@ -194,7 +198,7 @@ MkSAPI.prototype.GetModules = function(name) {
 
 MkSAPI.prototype.LoadModule = function(name) {
 	var self = this;
-	this.GetFileContent({
+	this.GetResourceContent({
 		"file_path": "modules/"+name
 	}, function(res) {
 		var payload = res.payload;
