@@ -19,6 +19,21 @@ function MkSAPI () {
 		'Count': 0,
 		'ModulesPathList': []
 	}
+
+	this.HostMap = {
+        "mobile": {
+            "html": "js/application/app/mobile/app.html",
+            "js": "js/application/app/mobile/app.js",
+			"resource": "js/application/app/mobile/resource.js"
+        },
+        "default": {
+            "html": "js/application/app/default/app.html",
+            "js": "js/application/app/default/app.js",
+			"resource": "js/application/app/default/resource.js"
+        }
+    }
+
+	self.HostType 			= null; 
 	
 	return this;
 }
@@ -161,6 +176,20 @@ MkSAPI.prototype.SendPacket = function (cmd, payload, callback) {
 	}
 }
 
+MkSAPI.prototype.DetectHost = function() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        // true for mobile device
+        console.log("mobile device");
+        self.HostType = "mobile";
+    } else {
+        // false for not mobile device
+        console.log("not mobile device");
+        self.HostType = "default";
+    }
+
+	return self.HostType;
+}
+
 MkSAPI.prototype.GetFileContent = function (payload, callback) {
 	this.SendPacket("get_file", payload, callback);
 }
@@ -232,7 +261,9 @@ var MkSAPIBuilder = (function () {
 	var Instance;
 
 	function CreateInstance () {
-		return new MkSAPI();
+		api = new MkSAPI();
+		api.DetectHost();
+		return api;
 	}
 
 	return {

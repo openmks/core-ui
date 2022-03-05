@@ -18,15 +18,20 @@
     <body>
         <div data-role="page" id="id_application_container_view_module"></div>
 
-        <link href="{{ url_for('static', filename='lib/jquery-mobile/css/jquery.mobile-1.4.5.min.css') }}" rel="stylesheet">
-        <script src="{{ url_for('static', filename='lib/jquery-mobile/js/jquery.js') }}"></script>
-        <script src="{{ url_for('static', filename='lib/jquery-mobile/js/jquery.mobile-1.4.5.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='lib/feather/feather.min.js') }}"></script>
+        <link href="{{ url_for('static', filename='js/core/lib/jquery-mobile/css/jquery.mobile-1.4.5.min.css') }}" rel="stylesheet">
+        <script src="{{ url_for('static', filename='js/core/lib/jquery-mobile/js/jquery.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/lib/jquery-mobile/js/jquery.mobile-1.4.5.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/lib/feather/feather.min.js') }}"></script>
 
-        <script src="{{ url_for('static', filename='js/application/pidaptor.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/application/piterm.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/Loader.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/MKSApi.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/application/resource/pidaptor.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/application/resource/piterm.js') }}"></script>
+
+        <script src="{{ url_for('static', filename='js/core/src/ApplicationLoader.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/MKSApi.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_graph.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_modal.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_table.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/progress_bar.js') }}"></script>
 
         <script type="text/javascript">
             var myVar       = "{{ data }}";
@@ -47,11 +52,21 @@
                 // Update UI accordingly
             }
 
-            var AppLoader = new Loader();
+            var AppLoader = new ApplicationLoader();
             AppLoader.Connect(function() {
-                AppLoader.Load();
+                AppLoader.Load(function() {
+                    $("#id_application_container_view_module").trigger("create");
+                });
             });
-            window.resizeTo(1200,800);
+
+            var UpdateApplicationTime = function () {
+                var d = new Date();
+                var hours   = d.getHours(); // => 9
+                var minutes = d.getMinutes(); // =>  30
+                var seconds = d.getSeconds();
+                document.getElementById("id_application_time").innerHTML = hours + ":" + minutes + ":" + seconds;
+            }
+            setInterval(UpdateApplicationTime, 1000);
         </script>
     </body>
 </html>

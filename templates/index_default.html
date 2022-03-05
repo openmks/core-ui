@@ -59,7 +59,9 @@
 
             var AppLoader = new ApplicationLoader();
             AppLoader.Connect(function() {
-                AppLoader.Load();
+                AppLoader.Load(function() {
+                    
+                });
             });
 
             var UpdateApplicationTime = function () {

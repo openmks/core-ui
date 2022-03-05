@@ -6,16 +6,6 @@ function ApplicationLoader() {
     this.API.OnUnexpectedDataArrived = function (packet) {
         console.log(packet);
     }
-    this.HostMap = {
-        "mobile": {
-            "html": "js/application/app/mobile/app.html",
-            "js": "js/application/app/mobile/app.js"
-        },
-        "default": {
-            "html": "js/application/app/default/app.html",
-            "js": "js/application/app/default/app.js"
-        }
-    }
 
     return this;
 }
@@ -29,22 +19,12 @@ ApplicationLoader.prototype.Disconnect = function(callback) {
     console.log("Disconnect");
     this.API.DisconnectLocalWS();
 }
-ApplicationLoader.prototype.DetectHost = function() {
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-        // true for mobile device
-        console.log("mobile device");
-        return "mobile";
-    } else {
-        // false for not mobile device
-        console.log("not mobile device");
-        return "default";
-    }
-}
+
 ApplicationLoader.prototype.Load = function(callback) {
     var self = this;
 
-    var host = this.DetectHost();
-    var files = this.HostMap[host];
+    var host  = this.API.DetectHost();
+    var files = this.API.HostMap[host];
 
     // Load HTML
     this.API.GetFileContent({
@@ -58,11 +38,22 @@ ApplicationLoader.prototype.Load = function(callback) {
         self.API.GetFileContent({
             "file_path": files.js
         }, function(res) {
-            self.Disconnect();
             var payload = res.payload;
             var js = self.API.ConvertHEXtoString(payload.content);
-            // Inject into DOM
-            self.API.ExecuteJS(js);
+
+            // Load Resource
+            self.API.GetFileContent({
+                "file_path": files.resource
+            }, function(res) {
+                var payload = res.payload;
+                var resource = self.API.ConvertHEXtoString(payload.content);
+                // Disconnect loader API
+                self.Disconnect();
+                // Inject into DOM
+                self.API.ExecuteJS(js);
+                self.API.ExecuteJS(resource);
+                callback();
+            });
         });
     });
 }
