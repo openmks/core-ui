@@ -30,6 +30,7 @@
 
         <script src="{{ url_for('static', filename='js/core/lib/crypto-js/3.1.2/components/core.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/lib/crypto-js/3.1.2/components/md5.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/lib/plotly/plotly-2.6.3.min.js') }}"></script>
 
         <script src="{{ url_for('static', filename='js/application/resource/pidaptor.js') }}"></script>
         <script src="{{ url_for('static', filename='js/application/resource/piterm.js') }}"></script>
@@ -40,14 +41,18 @@
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_modal.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_table.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/progress_bar.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_slider.js') }}"></script>
 
         <script type="text/javascript">
             var myVar       = "{{ data }}";
             var decodedJSON = $('<div/>').html(myVar).text();
             var web_data    = $.parseJSON(decodedJSON);
 
-            var global_ip    = web_data.ip;
-            var global_port  = web_data.port;
+            var global_ip       = web_data.ip;
+            var global_port     = web_data.port;
+            var global_web_port = web_data.web_port;
+
+            console.log(global_ip, global_port, global_web_port);
 
             var queryString = window.location.search;
             var view = "app";
