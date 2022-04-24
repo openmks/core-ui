@@ -1,4 +1,4 @@
-function CoreUIBasicProgressBar () {
+function CoreUIBasicTabs () {
 	self = this;
 
 	this.WorkingObject  = null;
@@ -17,7 +17,7 @@ function CoreUIBasicProgressBar () {
 	return this;
 }
 
-CoreUIBasicProgressBar.prototype.Build = function (id) {
+CoreUIBasicTabs.prototype.Build = function (id) {
 	this.WorkingObject  = document.getElementById(id);
 	this.WidgetID  		= id+"_core_ui_progress_bar";
 	var html 			= this.Content;
@@ -27,21 +27,21 @@ CoreUIBasicProgressBar.prototype.Build = function (id) {
     this.WorkingObject.innerHTML = html;
 }
 
-CoreUIBasicProgressBar.prototype.Remove = function () {
+CoreUIBasicTabs.prototype.Remove = function () {
     if (this.WorkingObject !== undefined && this.WorkingObject !== null) {
 		this.WorkingObject.parentNode.removeChild(this.WorkingObject);
 	}
 }
 
-CoreUIBasicProgressBar.prototype.Show = function () {
+CoreUIBasicTabs.prototype.Show = function () {
     document.getElementById(this.WidgetID).classList.remove("d-none");
 }
 
-CoreUIBasicProgressBar.prototype.Hide = function () {
+CoreUIBasicTabs.prototype.Hide = function () {
     document.getElementById(this.WidgetID).classList.add("d-none");
 }
 
-CoreUIBasicProgressBar.prototype.SetMessageView = function (status) {
+CoreUIBasicTabs.prototype.SetMessageView = function (status) {
 	if (status == true) {
 		document.getElementById("id-progress-item-"+this.WidgetID).classList.add("d-none");
 	} else {
@@ -49,10 +49,10 @@ CoreUIBasicProgressBar.prototype.SetMessageView = function (status) {
 	}
 }
 
-CoreUIBasicProgressBar.prototype.SetValue = function (value) {
+CoreUIBasicTabs.prototype.SetValue = function (value) {
     $("#id-progress-bar-"+this.WidgetID).css("width", value+"%").text(value+"%");
 }
 
-CoreUIBasicProgressBar.prototype.SetMessage = function (message) {
+CoreUIBasicTabs.prototype.SetMessage = function (message) {
     document.getElementById("id-progress-item-"+this.WidgetID).innerHTML = message;
 }
