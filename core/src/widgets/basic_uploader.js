@@ -1,6 +1,8 @@
+/*
+	NOTE: Only one uploader per window (ids are static).
+*/
 function MksBasicUploader () {
 	self 					= this;
-	this.API 				= null;
 	this.FileName 			= "";
 	this.FileSize 			= 0;
 	this.Reader 			= new FileReader();
@@ -78,23 +80,14 @@ function MksBasicUploader () {
 					}
 				}
 
-				self.API.UploadFileContent(NodeUUID, payload, function(res) {
-					if (res) {
-						status = res.data.payload.status;
-						if (status == "accept") {
-							console.log("Uploaded " + res.data.payload.chunk + " " + percCunck * res.data.payload.chunk);
-						}
-					}
+				app.API.UploadFileContent(payload, function(packet, error) {
+					console.log("UploadFileContent", packet.payload);
 				});
 			}
 		}
 	}
 	
 	return this;
-}
-
-MksBasicUploader.prototype.SetAPI = function (api) {
-	this.API = api;
 }
 
 MksBasicUploader.prototype.Show = function () {
@@ -119,13 +112,12 @@ MksBasicUploader.prototype.Build = function (obj, action_title) {
 	var html = this.BasicUploaderContainer;
 	html = html.split("[FILE_TYPE]").join(this.FileType);
 	html = html.split("[ACTION]").join(action_title);
-	//console.log(html);
 
 	if (this.WithModal == true) {
 		if (this.Modal !== null) {
 			this.Modal.Remove();
 		}
-		this.Modal = new MksBasicModal();
+		this.Modal = new MksBasicModal("uploader");
 		this.Modal.SetTitle("Upload File");
 		this.Modal.SetContent(html);
 	} else {
@@ -140,21 +132,26 @@ MksBasicUploader.prototype.Upload = function () {
 	this.ReadImage(fileObj.files[0]);
 }
 
-MksBasicUploader.prototype.UpdateProgress = function (data) {
+MksBasicUploader.prototype.UpdateProgress = function (data, scope) {
 	$("#id_uploader_progress_bar").css("width", data.precentage).text(data.precentage);
-	document.getElementById("id_uploader_progress_item").innerHTML =  data.message;
 	switch(data.status) {
 		case "inprogress":
+			document.getElementById("id_uploader_progress_item").innerHTML = data.message;
 			break;
 		case "error":
+			document.getElementById("id_uploader_progress_item").innerHTML = "Error";
 			break;
 		case "done":
-			if (this.OnUploadCompete !== null) {
-				// document.getElementById("id_uploader_progress").classList.add("d-none");
-				this.OnUploadCompete(data.file);
+			document.getElementById("id_uploader_progress_item").innerHTML = data.message;
+			if (scope.OnUploadCompete !== null) {
+				scope.OnUploadCompete(data.file, scope);
 			}
 			break;
 	}
+}
+
+MksBasicUploader.prototype.SetProgressText = function (msg) {
+	document.getElementById("id_uploader_progress_item").innerHTML = msg;
 }
 
 MksBasicUploader.prototype.ReadImage = function (file) {
@@ -162,6 +159,7 @@ MksBasicUploader.prototype.ReadImage = function (file) {
 	// Check if the file is zip file.
 	for (index in this.FileType) {
 		item = this.FileType[index];
+		console.log(item, file.type);
 		if (file.type && file.type.indexOf(item) !== -1) {
 			fileTypeCorrect = true;
 		}
