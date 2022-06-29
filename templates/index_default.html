@@ -4,7 +4,7 @@
         <title>Application</title>
         <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
         <link href="{{ url_for('static', filename='js/core/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='js/core/lib/bootstrap/css/docs.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='js/core/lib/bootstrap/css/docs.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='js/core/lib/gijgo/gijgo.min.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='js/core/lib/fontawesome-5.11.2/css/all.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='js/core/lib/bs-datepicker/bootstrap-datepicker.css') }}" rel="stylesheet">
@@ -19,10 +19,7 @@
             </ul>
         </nav>
         <br>
-        <main role="main" class="container">
-            <div id="id_application_container_view_module"></div>
-            <footer class="footer"></footer>
-        </main>
+        <div id="id_application_container_view_module"></div>
 
         <!-- Icons -->
         <script src="{{ url_for('static', filename='js/core/lib/feather/feather.min.js') }}"></script>
@@ -52,6 +49,7 @@
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_slider.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/cui_matrix.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_uploader.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_tabs_widget.js') }}"></script>
 
         <script type="text/javascript">
             var myVar       = "{{ data }}";

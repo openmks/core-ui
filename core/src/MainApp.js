@@ -23,6 +23,9 @@ function Application() {
 
     return this;
 }
+Application.prototype.PostMessage = function(obj) {
+    window.parent.postMessage(obj, "*")
+}
 Application.prototype.RegisterEventHandler = function(name, callback, scope) {
     this.EventMapper[name] = { 
         callback: callback,
@@ -85,4 +88,8 @@ Application.prototype.HideModal = function() {
 }
 Application.prototype.Replace = function(origin, tag, replacement) {
     return origin.split(tag).join(replacement)
+}
+Application.prototype.HashMD5 = function(value) {
+    // JSON.stringify(value)
+    return CryptoJS.MD5(value).toString();
 }

@@ -3,14 +3,13 @@ function MksBasicModal (name) {
 	this.Name = name;
 	
 	this.BasicModalContainer = `
-		<div class="modal fade bd-example-modal-[SIZE]" id="id_basic_modal_[NAME]" tabindex="-1" role="dialog" aria-labelledby="id_m_basic_modal_[NAME]_label" aria-hidden="true">
+		<div data-backdrop="static" class="modal fade bd-example-modal-[SIZE]" id="id_basic_modal_[NAME]" tabindex="-1" role="dialog" aria-labelledby="id_m_basic_modal_[NAME]_label" aria-hidden="true">
 			<div class="modal-dialog modal-[SIZE]" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="id_m_basic_modal_[NAME]_label">[TITLE]</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
 						<span aria-hidden="true">&times;</span>
-						</button>
 					</div>
 					<div id="id_basic_modal_[NAME]_content" class="modal-body">[CONTENT]</div>
 					<div id="id_basic_modal_[NAME]_footer" class="modal-footer">[FOOTER]</div>

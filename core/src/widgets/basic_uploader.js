@@ -51,6 +51,7 @@ function MksBasicUploader () {
 		start = 0;
 		end   = 0;
 		percCunck = parseInt(100 / chunks);
+		console.log(chunks);
 		for (i = 0; i < chunks; i++) {
 			if ( (self.FileSize - i * MAX_CHUNK_SIZE) < MAX_CHUNK_SIZE ) {
 				// We are at last packet
@@ -80,9 +81,7 @@ function MksBasicUploader () {
 					}
 				}
 
-				app.API.UploadFileContent(payload, function(packet, error) {
-					console.log("UploadFileContent", packet.payload);
-				});
+				app.API.UploadFileContent(payload);
 			}
 		}
 	}
@@ -154,14 +153,28 @@ MksBasicUploader.prototype.SetProgressText = function (msg) {
 	document.getElementById("id_uploader_progress_item").innerHTML = msg;
 }
 
+/*
+	.zip - application/x-zip-compressed
+	.bin - application/octet-stream
+	.pdf - application/pdf
+	.docx - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+*/
 MksBasicUploader.prototype.ReadImage = function (file) {
 	var fileTypeCorrect = false;
-	// Check if the file is zip file.
-	for (index in this.FileType) {
-		item = this.FileType[index];
-		console.log(item, file.type);
-		if (file.type && file.type.indexOf(item) !== -1) {
-			fileTypeCorrect = true;
+	console.log(file.type);
+
+	if (this.FileType === undefined || this.FileType === null) {
+		fileTypeCorrect = true;
+	} else if (this.FileType !== undefined && this.FileType !== null && this.FileType.length == 0) { 
+		fileTypeCorrect = true;
+	} else {
+		// Check if the file is zip file.
+		for (index in this.FileType) {
+			item = this.FileType[index];
+			console.log(item, file.type);
+			if (file.type && file.type.indexOf(item) !== -1) {
+				fileTypeCorrect = true;
+			}
 		}
 	}
 

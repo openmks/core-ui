@@ -61,6 +61,13 @@ MkSAPI.prototype.AppendCSS = function(content) {
 	document.head.appendChild(styleSheet);
 }
 
+MkSAPI.prototype.WidgetAppendCSS = function(name, content) {
+	var styleSheet = document.createElement("style");
+	styleSheet.type = "text/css";
+	styleSheet.innerText = content;
+	document.head.appendChild(styleSheet);
+}
+
 MkSAPI.prototype.ConnectLocalWS = function (ip, port, callback) {
 	var self = this;
 	var url	= "ws://" + ip;
@@ -176,6 +183,28 @@ MkSAPI.prototype.SendPacket = function (cmd, payload, callback) {
 	}
 }
 
+MkSAPI.prototype.SendPacketNoResponse = function (cmd, payload) {
+	if ("" == payload) {
+		payload = {};
+	}
+
+	request = {
+		header: {
+			command: cmd,
+			timestamp: Date.now(),
+			identifier: this.PacketCounter
+		},
+		payload: payload
+	}
+
+	this.PacketCounter++;
+	if (this.PacketCounter < 1) {
+		this.PacketCounter = 0;
+	}
+
+	this.WS.send(JSON.stringify(request));
+}
+
 MkSAPI.prototype.OpenURL = function (method) {
 	window.open(method);
 }
@@ -202,8 +231,8 @@ MkSAPI.prototype.GetResourceContent = function (payload, callback) {
 	this.SendPacket("get_resource", payload, callback);
 }
 
-MkSAPI.prototype.UploadFileContent = function (payload, callback) {
-	this.SendPacket("upload_file", payload, callback);
+MkSAPI.prototype.UploadFileContent = function (payload) {
+	this.SendPacketNoResponse("upload_file", payload);
 }
 
 MkSAPI.prototype.SendCustomCommand = function (command, payload, callback) {
@@ -252,7 +281,7 @@ MkSAPI.prototype.LoadModule = function(name) {
 		// Inject into DOM
 		self.ExecuteJS(js);
 		window.ApplicationModules.Count--;
-		console.log(window.ApplicationModules.Count);
+		console.log(window.ApplicationModules.Count, name);
 		if (window.ApplicationModules.Count == 0) {
 			if (self.ModulesLoadedCallback != null) {
 				self.ModulesLoadedCallback();
