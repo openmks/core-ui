@@ -1,6 +1,7 @@
-function CoreUIBasicTabs () {
+function CoreUIBasicTabs (scope) {
 	self = this;
 
+	this.Scope 			= scope;
 	this.WorkingObject  = null;
     this.WidgetID       = null;
 	this.Content 		= `
@@ -13,7 +14,7 @@ function CoreUIBasicTabs () {
 	`;
 	this.TabHeader 		= `
 		<li class="nav-item">
-			<a class="nav-link active" style="cursor: pointer" id="[ID]_basic_tab_header_[NUM]" onclick="window.ApplicationModules.CoreUIWidgets.[ID].TabSelected('[NAME]');">[NAME]</a>
+			<a class="nav-link active" style="cursor: pointer" id="[ID]_basic_tab_header_[NUM]" onclick="`+this.Scope.Path+`.CoreUIWidgets.[ID].TabSelected('[NAME]');">[NAME]</a>
 		</li>
 	`;
 	this.TabContent		= `
@@ -25,8 +26,8 @@ function CoreUIBasicTabs () {
 	this.Tabs 		= {};
 	this.TabCounter = 0;
 
-	if (window.ApplicationModules.hasOwnProperty("CoreUIWidgets") == false) {   
-		window.ApplicationModules.CoreUIWidgets = {};
+	if (scope.Object.hasOwnProperty("CoreUIWidgets") == false) {   
+		scope.Object.CoreUIWidgets = {};
 	}
 
 	this.SelectedTabName = "";
@@ -39,7 +40,7 @@ CoreUIBasicTabs.prototype.Build = function (id) {
 	this.WidgetID  		= id+"_core_ui_tabs";
 	var html 			= this.Content;
 
-	window.ApplicationModules.CoreUIWidgets[this.WidgetID] = this;
+	this.Scope.Object.CoreUIWidgets[this.WidgetID] = this;
 
 	html = html.split("[ID]").join(this.WidgetID);
 	var tabHeader = "";

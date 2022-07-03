@@ -15,7 +15,7 @@ function MkSAPI () {
 	this.PacketCounter		= 1;
 	this.SentPackets 		= [];
 
-	window.ApplicationModules = {
+	this.ApplicationModules = {
 		'Count': 0,
 		'ModulesPathList': []
 	}
@@ -248,8 +248,8 @@ MkSAPI.prototype.UnregisterOnNodeChange = function (callback) {
 }
 
 MkSAPI.prototype.AppendModule = function(name) {
-	window.ApplicationModules.ModulesPathList.push(name+".js");
-	window.ApplicationModules.Count++;
+	this.ApplicationModules.ModulesPathList.push(name+".js");
+	this.ApplicationModules.Count++;
 }
 
 MkSAPI.prototype.GetModuleUI = function(name, callback) {
@@ -266,8 +266,8 @@ MkSAPI.prototype.GetModuleUI = function(name, callback) {
 }
 
 MkSAPI.prototype.GetModules = function(name) {
-	for (key in window.ApplicationModules.ModulesPathList) {
-		this.LoadModule(window.ApplicationModules.ModulesPathList[key]);
+	for (key in this.ApplicationModules.ModulesPathList) {
+		this.LoadModule(this.ApplicationModules.ModulesPathList[key]);
 	}
 }
 
@@ -280,15 +280,36 @@ MkSAPI.prototype.LoadModule = function(name) {
 		var js = self.ConvertHEXtoString(payload.content);
 		// Inject into DOM
 		self.ExecuteJS(js);
-		window.ApplicationModules.Count--;
-		console.log(window.ApplicationModules.Count, name);
-		if (window.ApplicationModules.Count == 0) {
+		self.ApplicationModules.Count--;
+		console.log(self.ApplicationModules.Count, name);
+		if (self.ApplicationModules.Count == 0) {
 			if (self.ModulesLoadedCallback != null) {
 				self.ModulesLoadedCallback();
 			}
 		}
 	});
-}	
+}
+
+MkSAPI.prototype.LoadSingleModule = function(name, callback) {
+	var self = this;
+	this.GetResourceContent({
+		"file_path": "modules/"+name
+	}, function(res, error) {
+		var payload = res.payload;
+		var js = self.ConvertHEXtoString(payload.content);
+		// Inject into DOM
+		self.ExecuteJS(js);
+		console.log(self.ApplicationModules.Count, name);
+		if (callback != null) {
+			callback();
+		}
+	});
+}
+
+
+MkSAPI.prototype.GetAppliactionModules = function() {
+	return this.ApplicationModules;
+}
 
 var MkSAPIBuilder = (function () {
 	var Instance;

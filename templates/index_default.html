@@ -35,9 +35,7 @@
         <script src="{{ url_for('static', filename='js/core/lib/fontawesome-5.11.2/js/all.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/lib/bs-datepicker/bootstrap-datepicker.min.js') }}"></script>
 
-        <script src="{{ url_for('static', filename='js/application/resource/pidaptor.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/application/resource/piterm.js') }}"></script>
-        
+        <script src="{{ url_for('static', filename='js/core/src/Network.js') }}"></script>        
         <script src="{{ url_for('static', filename='js/core/src/ApplicationLoader.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/MKSApi.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/MainApp.js') }}"></script>
@@ -73,11 +71,12 @@
                 document.getElementById("id_application_navbar_container").classList.add("d-none");
             }
 
+            window.MKS = {};
+            window.MKS.MicroServices = {};
+
             var AppLoader = new ApplicationLoader();
             AppLoader.Connect(function() {
-                AppLoader.Load(function() {
-                    
-                });
+                AppLoader.Load(function() { });
             });
 
             var UpdateApplicationTime = function () {

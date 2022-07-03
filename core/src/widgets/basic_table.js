@@ -118,7 +118,7 @@ MksBasicTable.prototype.ApplyType = function(type, callback) {
     this.Content = this.Type[type].content;
 
     if (this.Type[type].css != "") {
-        app.API.AppendCSS(this.Type[type].css);
+        window.MKS.MicroServices.Main.API.AppendCSS(this.Type[type].css);
     }
 }
 
