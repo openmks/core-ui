@@ -41,6 +41,13 @@ ApplicationLoader.prototype.Load = function(callback) {
             var payload = res.payload;
             var js = self.API.ConvertHEXtoString(payload.content);
 
+            // Disconnect loader API
+            self.Disconnect();
+            // Inject into DOM
+            self.API.ExecuteJS(js);
+            callback();
+            
+            /*
             // Load Resource
             self.API.GetFileContent({
                 "file_path": files.resource
@@ -54,6 +61,7 @@ ApplicationLoader.prototype.Load = function(callback) {
                 self.API.ExecuteJS(resource);
                 callback();
             });
+            */
         });
     });
 }

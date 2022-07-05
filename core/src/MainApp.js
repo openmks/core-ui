@@ -11,8 +11,6 @@ function Application(name) {
     }
     this.API.ModulesLoadedCallback = function () {
         console.log("Modules Loaded");
-        self.Adaptor    = new Pidaptor(self.API);
-        self.Terminal   = new Piterm(self.API);
         if (self.UserModulesLoadedCallback != null) {
             self.UserModulesLoadedCallback();
         }
@@ -27,8 +25,8 @@ function Application(name) {
     this.API.ApplicationModules.Error = new MksBasicModal("ERROR");
     this.UserModulesLoadedCallback = null;
 
-    this.API.AppendModule("pidaptor");
-    this.API.AppendModule("piterm");
+    // this.API.AppendModule("pidaptor");
+    // this.API.AppendModule("piterm");
 
     return this;
 }

@@ -1,8 +1,10 @@
 /*
 	NOTE: Only one uploader per window (ids are static).
 */
-function MksBasicUploader () {
+function MksBasicUploader (application) {
 	self 					= this;
+
+	this.Application		= application;
 	this.FileName 			= "";
 	this.FileSize 			= 0;
 	this.Reader 			= new FileReader();
@@ -81,7 +83,7 @@ function MksBasicUploader () {
 					}
 				}
 
-				app.API.UploadFileContent(payload);
+				application.API.UploadFileContent(payload);
 			}
 		}
 	}
@@ -195,15 +197,15 @@ MksBasicUploader.prototype.SetModal = function (enabled) {
 var MksBasicUploaderBuilder = (function () {
 	var Instance;
 
-	function CreateInstance () {
-		var obj = new MksBasicUploader();
+	function CreateInstance (application) {
+		var obj = new MksBasicUploader(application);
 		return obj;
 	}
 
 	return {
-		GetInstance: function () {
+		GetInstance: function (application) {
 			if (!Instance) {
-				Instance = CreateInstance();
+				Instance = CreateInstance(application);
 			}
 
 			return Instance;
