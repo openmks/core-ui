@@ -12,13 +12,14 @@ function Application(name) {
     this.API.ModulesLoadedCallback = function () {
         console.log("Modules Loaded");
         if (self.UserModulesLoadedCallback != null) {
-            self.UserModulesLoadedCallback();
+            self.UserModulesLoadedCallback(self);
         }
     }
     this.EventMapper = {};
     this.Adaptor    = null;
     this.Terminal   = null;
     this.Network    = new Network(this.API);
+    this.Users      = new RemoteApps(this);
 
     this.SelectedMenu = null;
     this.API.ApplicationModules.Modal = new MksBasicModal("GLOBAL");
@@ -57,8 +58,12 @@ Application.prototype.Connect = function(ip, port, callback) {
         console.log("Connected to local websocket");
 
         self.API.GetModules();
-        callback();
+        callback(self);
     });
+}
+Application.prototype.Disconnect = function() {
+    console.log("Disconnect Application");
+    this.API.DisconnectLocalWS();
 }
 Application.prototype.OnChangeEvent = function(packet) {
     var event = packet.payload.event;
@@ -103,11 +108,11 @@ Application.prototype.HashMD5 = function(value) {
 Application.prototype.GetAppliactionModules = function() {
     return this.API.GetAppliactionModules();
 }
-
 Application.prototype.LoadModule = function(name, callback) {
-    this.API.LoadSingleModule(name, function() {
+    var self = this;
+    this.API.LoadSingleModule(name, function(js) {
         if (callback != null) {
-			callback();
+			callback(self, js);
 		}
     });
 }

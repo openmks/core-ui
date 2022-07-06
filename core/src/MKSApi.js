@@ -293,7 +293,7 @@ MkSAPI.prototype.LoadModule = function(name) {
 MkSAPI.prototype.LoadSingleModule = function(name, callback) {
 	var self = this;
 	this.GetResourceContent({
-		"file_path": "modules/"+name
+		"file_path": "modules/"+name+".js"
 	}, function(res, error) {
 		var payload = res.payload;
 		var js = self.ConvertHEXtoString(payload.content);
@@ -301,7 +301,7 @@ MkSAPI.prototype.LoadSingleModule = function(name, callback) {
 		self.ExecuteJS(js);
 		console.log(self.ApplicationModules.Count, name);
 		if (callback != null) {
-			callback();
+			callback(js);
 		}
 	});
 }
