@@ -1,23 +1,23 @@
-function MksBasicTable () {
+function CoreUIBasicTable () {
 	self = this;
 
     this.WorkingObject  = null;
     this.Head           = "";
     this.Body           = "";
     this.Content        = `
-        <div id="[HOST_ID]_baisc_table_content">
-            <nav aria-label="Page navigation example" id="[HOST_ID]_baisc_table_listing_nav">
-                <ul class="pagination justify-content-center" id="[HOST_ID]_baisc_table_listing_index_nav">
-                    <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_baisc_table_listing_index_left"></small></li>
-                    <li class="page-item" id="[HOST_ID]_baisc_table_listing_first"></li>
-                    <li class="page-item" id="[HOST_ID]_baisc_table_listing_left"></li>
-                    <li class="page-item" id="[HOST_ID]_baisc_table_listing_right"></li>
-                    <li class="page-item" id="[HOST_ID]_baisc_table_listing_last"></li>
-                    <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_baisc_table_listing_index_right"></small></li>
+        <div id="[HOST_ID]_basic_table_content">
+            <nav aria-label="Page navigation example" id="[HOST_ID]_basic_table_listing_nav">
+                <ul class="pagination justify-content-center" id="[HOST_ID]_basic_table_listing_index_nav">
+                    <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_basic_table_listing_index_left"></small></li>
+                    <li class="page-item" id="[HOST_ID]_basic_table_listing_first"></li>
+                    <li class="page-item" id="[HOST_ID]_basic_table_listing_left"></li>
+                    <li class="page-item" id="[HOST_ID]_basic_table_listing_right"></li>
+                    <li class="page-item" id="[HOST_ID]_basic_table_listing_last"></li>
+                    <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_basic_table_listing_index_right"></small></li>
                 </ul>
             </nav>
             <br>
-            <div id="[HOST_ID]_baisc_table_actions"></div>
+            <div id="[HOST_ID]_basic_table_actions"></div>
             <div class="table-responsive">
                 <table class="table table-sm [STRIPED] table-hover">
                     <thead>
@@ -25,7 +25,7 @@ function MksBasicTable () {
                             [HEAD]
                         </tr>
                     </thead>
-                    <tbody id="[HOST_ID]_baisc_table_body">
+                    <tbody id="[HOST_ID]_basic_table_body">
                         [BODY]
                     </tbody>
                 </table>
@@ -37,19 +37,19 @@ function MksBasicTable () {
         "type_basic": {
             css: ``,
             content: `
-            <div id="[HOST_ID]_baisc_table_content">
-                <nav aria-label="Page navigation example" id="[HOST_ID]_baisc_table_listing_nav">
-                    <ul class="pagination justify-content-center" id="[HOST_ID]_baisc_table_listing_index_nav">
-                        <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_baisc_table_listing_index_left"></small></li>
-                        <li class="page-item" id="[HOST_ID]_baisc_table_listing_first"></li>
-                        <li class="page-item" id="[HOST_ID]_baisc_table_listing_left"></li>
-                        <li class="page-item" id="[HOST_ID]_baisc_table_listing_right"></li>
-                        <li class="page-item" id="[HOST_ID]_baisc_table_listing_last"></li>
-                        <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_baisc_table_listing_index_right"></small></li>
+            <div id="[HOST_ID]_basic_table_content">
+                <nav aria-label="Page navigation example" id="[HOST_ID]_basic_table_listing_nav">
+                    <ul class="pagination justify-content-center" id="[HOST_ID]_basic_table_listing_index_nav">
+                        <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_basic_table_listing_index_left"></small></li>
+                        <li class="page-item" id="[HOST_ID]_basic_table_listing_first"></li>
+                        <li class="page-item" id="[HOST_ID]_basic_table_listing_left"></li>
+                        <li class="page-item" id="[HOST_ID]_basic_table_listing_right"></li>
+                        <li class="page-item" id="[HOST_ID]_basic_table_listing_last"></li>
+                        <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_basic_table_listing_index_right"></small></li>
                     </ul>
                 </nav>
                 <br>
-                <div id="[HOST_ID]_baisc_table_actions"></div>
+                <div id="[HOST_ID]_basic_table_actions"></div>
                 <div class="table-responsive">
                     <table class="table table-sm [STRIPED] table-hover">
                         <thead>
@@ -57,7 +57,7 @@ function MksBasicTable () {
                                 [HEAD]
                             </tr>
                         </thead>
-                        <tbody id="[HOST_ID]_baisc_table_body">
+                        <tbody id="[HOST_ID]_basic_table_body">
                             [BODY]
                         </tbody>
                     </table>
@@ -68,19 +68,19 @@ function MksBasicTable () {
         "type_owl": {
             css: `a{-webkit-transition:.3s all ease;-o-transition:.3s all ease;transition:.3s all ease}a,a:hover{text-decoration:none!important}.content{padding:7rem 0}.custom-table{min-width:900px}.custom-table thead th,.custom-table thead tr{border-top:none;border-bottom:none!important}.custom-table tbody td,.custom-table tbody th{color:#777;font-weight:400;padding-bottom:20px;padding-top:20px;font-weight:300}.custom-table tbody td small,.custom-table tbody th small{color:#b3b3b3;font-weight:300}.custom-table tbody .persons{padding:0;margin:0}.custom-table tbody .persons li{padding:0;margin:0 0 0 -15px;list-style:none;display:inline-block}.custom-table tbody .persons li a{display:inline-block;width:36px}.custom-table tbody .persons li a img{border-radius:50%;max-width:100%}.custom-table tbody tr td,.custom-table tbody tr th{position:relative;-webkit-transition:.3s all ease;-o-transition:.3s all ease;transition:.3s all ease}.custom-table tbody tr td:after,.custom-table tbody tr td:before,.custom-table tbody tr th:after,.custom-table tbody tr th:before{-webkit-transition:.3s all ease;-o-transition:.3s all ease;transition:.3s all ease;content:"";left:0;right:0;position:absolute;height:1px;background:#bfbfbf;width:100%;opacity:0;visibility:hidden}.custom-table tbody tr td:before,.custom-table tbody tr th:before{top:-1px}.custom-table tbody tr td:after,.custom-table tbody tr th:after{bottom:-1px}.custom-table tbody tr:hover td,.custom-table tbody tr:hover th{background:rgba(0,0,0,.03)}.custom-table tbody tr:hover td:after,.custom-table tbody tr:hover td:before,.custom-table tbody tr:hover th:after,.custom-table tbody tr:hover th:before{opacity:1;visibility:visible}.custom-table tbody tr.active td,.custom-table tbody tr.active th{background:rgba(0,0,0,.03)}.custom-table tbody tr.active td:after,.custom-table tbody tr.active td:before,.custom-table tbody tr.active th:after,.custom-table tbody tr.active th:before{opacity:1;visibility:visible}.control{display:block;position:relative;margin-bottom:25px;cursor:pointer;font-size:18px}.control input{position:absolute;z-index:-1;opacity:0}.control__indicator{position:absolute;top:2px;left:0;height:20px;width:20px;border-radius:4px;border:2px solid #ccc;background:0 0}.control--radio .control__indicator{border-radius:50%}.control input:focus~.control__indicator,.control:hover input~.control__indicator{border:2px solid #007bff}.control input:checked~.control__indicator{border:2px solid #007bff;background:#007bff}.control input:disabled~.control__indicator{background:#e6e6e6;opacity:.6;pointer-events:none;border:2px solid #ccc}.control__indicator:after{font-family:icomoon;content:'\e5ca';position:absolute;display:none}.control input:checked~.control__indicator:after{display:block;color:#fff}.control--checkbox .control__indicator:after{top:50%;left:50%;-webkit-transform:translate(-50%,-52%);-ms-transform:translate(-50%,-52%);transform:translate(-50%,-52%)}.control--checkbox input:disabled~.control__indicator:after{border-color:#7b7b7b}.control--checkbox input:disabled:checked~.control__indicator{background-color:#007bff;opacity:.2;border:2px solid #007bff}`,
             content: `
-            <div id="[HOST_ID]_baisc_table_content">
-                <nav aria-label="Page navigation example" id="[HOST_ID]_baisc_table_listing_nav">
-                    <ul class="pagination justify-content-center" id="[HOST_ID]_baisc_table_listing_index_nav">
-                        <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_baisc_table_listing_index_left"></small></li>
-                        <li class="page-item" id="[HOST_ID]_baisc_table_listing_first"></li>
-                        <li class="page-item" id="[HOST_ID]_baisc_table_listing_left"></li>
-                        <li class="page-item" id="[HOST_ID]_baisc_table_listing_right"></li>
-                        <li class="page-item" id="[HOST_ID]_baisc_table_listing_last"></li>
-                        <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_baisc_table_listing_index_right"></small></li>
+            <div id="[HOST_ID]_basic_table_content">
+                <nav aria-label="Page navigation example" id="[HOST_ID]_basic_table_listing_nav">
+                    <ul class="pagination justify-content-center" id="[HOST_ID]_basic_table_listing_index_nav">
+                        <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_basic_table_listing_index_left"></small></li>
+                        <li class="page-item" id="[HOST_ID]_basic_table_listing_first"></li>
+                        <li class="page-item" id="[HOST_ID]_basic_table_listing_left"></li>
+                        <li class="page-item" id="[HOST_ID]_basic_table_listing_right"></li>
+                        <li class="page-item" id="[HOST_ID]_basic_table_listing_last"></li>
+                        <li class="page-item disabled"><small class="page-link" href="#" id="[HOST_ID]_basic_table_listing_index_right"></small></li>
                     </ul>
                 </nav>
                 <br>
-                <div id="[HOST_ID]_baisc_table_actions"></div>
+                <div id="[HOST_ID]_basic_table_actions"></div>
                 <div class="table-responsive">
                     <table class="table custom-table">
                         <thead>
@@ -88,7 +88,7 @@ function MksBasicTable () {
                                 [HEAD]
                             </tr>
                         </thead>
-                        <tbody id="[HOST_ID]_baisc_table_body">
+                        <tbody id="[HOST_ID]_basic_table_body">
                             [BODY]
                         </tbody>
                     </table>
@@ -105,7 +105,7 @@ function MksBasicTable () {
     this.Window     = 30;
     this.Slice      = 1;
     this.LastSlice  = 1;
-    this.Data       = null;
+    this.Data       = [];
     this.CountLeft  = 0;
     this.CountRight = 0;
 
@@ -114,7 +114,109 @@ function MksBasicTable () {
 	return this;
 }
 
-MksBasicTable.prototype.ApplyType = function(type, callback) {
+CoreUIBasicTable.prototype.Remove = function () {
+    if (this.WorkingObject !== undefined && this.WorkingObject !== null) {
+		this.WorkingObject.parentNode.removeChild(this.WorkingObject);
+	}
+}
+
+CoreUIBasicTable.prototype.Show = function () {
+    document.getElementById(this.WorkingObject+"_basic_table_content").classList.remove("d-none");
+}
+
+CoreUIBasicTable.prototype.Hide = function () {
+    document.getElementById(this.WorkingObject+"_basic_table_content").classList.add("d-none");
+}
+
+CoreUIBasicTable.prototype.CleanData = function () {
+    this.Data = null;
+}
+
+CoreUIBasicTable.prototype.Build = function (id) {
+    this.WorkingObject  = document.getElementById(id);
+    this.WidgetID       = id+"_core_ui_basic_table";
+    var html            = this.Content;
+
+    html = html.split("[HOST_ID]").join(this.WidgetID);
+	
+	if (this.Striped == true) {
+		html = html.split("[STRIPED]").join("table-striped");
+	} else {
+		html = html.split("[STRIPED]").join('');
+	}
+	
+    if (this.HeaderShow == true) {
+        html = html.split("[HEAD]").join(this.Head);
+    } else {
+        html = html.split("[HEAD]").join("");
+    }
+
+    // Build body table
+    var length = this.Data.length;
+    for (idx = 0; idx < length; idx++) {
+        if (this.RowsNumber == true) {
+            this.Body += "<tr id='"+this.WidgetID+"_row_"+(idx+1)+"'><th scope='row'>"+(idx+1)+"</th>";
+        } else {
+            this.Body += "<tr id='"+this.WidgetID+"_row_"+(idx+1)+"'>";
+        }
+        
+        for (ydx = 0; ydx < data[idx].length; ydx++) {
+            this.Body += "<td>" + data[idx][ydx] + "</td>";
+        }
+        this.Body += "</tr>";
+    }
+    
+    html = html.split("[BODY]").join(this.Body);
+    // Set HTML
+    this.WorkingObject.innerHTML = html;
+
+    if (this.Listing == false) {
+        document.getElementById(this.WidgetID+"_basic_table_listing_nav").classList.add("d-none");
+    } else {
+        
+        this.objLeft = document.createElement("small");
+        this.objLeft.style.color = "blue";
+        this.objLeft.style.cursor = "pointer";
+        this.objLeft.innerHTML = "Previous";
+        this.objLeft.classList.add("page-link");
+        this.objLeft.classList.add("text-muted");
+        this.objLeft.onclick = this.LeftClick.bind(this);
+
+        this.objRight = document.createElement("small");
+        this.objRight.style.color = "blue";
+        this.objRight.style.cursor = "pointer";
+        this.objRight.innerHTML = "Next";
+        this.objRight.classList.add("page-link");
+        this.objRight.classList.add("text-muted");
+        this.objRight.onclick = this.RighClick.bind(this);
+
+        this.objFirst = document.createElement("small");
+        this.objFirst.style.color = "blue";
+        this.objFirst.style.cursor = "pointer";
+        this.objFirst.innerHTML = "First";
+        this.objFirst.classList.add("page-link");
+        this.objFirst.classList.add("text-muted");
+        this.objFirst.onclick = this.FirstClick.bind(this);
+
+        this.objLast = document.createElement("small");
+        this.objLast.style.color = "blue";
+        this.objLast.style.cursor = "pointer";
+        this.objLast.innerHTML = "Last";
+        this.objLast.classList.add("page-link");
+        this.objLast.classList.add("text-muted");
+        this.objLast.onclick = this.LastClick.bind(this);
+
+        document.getElementById(this.WidgetID+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
+        document.getElementById(this.WidgetID+"_basic_table_listing_index_right").innerHTML = this.CountRight;
+        document.getElementById(this.WidgetID+"_basic_table_listing_left").appendChild(this.objLeft);
+        document.getElementById(this.WidgetID+"_basic_table_listing_right").appendChild(this.objRight);
+        document.getElementById(this.WidgetID+"_basic_table_listing_first").appendChild(this.objFirst);
+        document.getElementById(this.WidgetID+"_basic_table_listing_last").appendChild(this.objLast);
+        document.getElementById(this.WidgetID+"_basic_table_listing_nav").classList.remove("d-none");
+    }
+}
+
+CoreUIBasicTable.prototype.ApplyType = function(type) {
     this.Content = this.Type[type].content;
 
     if (this.Type[type].css != "") {
@@ -122,46 +224,49 @@ MksBasicTable.prototype.ApplyType = function(type, callback) {
     }
 }
 
-MksBasicTable.prototype.RegisterUIChangeEvent = function(callback) {
+CoreUIBasicTable.prototype.RegisterUIChangeEvent = function(callback) {
     this.UIChangeEvent = callback;
 }
 
-MksBasicTable.prototype.EnableListing = function () {
+CoreUIBasicTable.prototype.EnableListing = function () {
 	this.Listing = true;
 }
 
-MksBasicTable.prototype.SetListingWindowSize = function (value) {
+CoreUIBasicTable.prototype.SetListingWindowSize = function (value) {
 	this.Window = value;
 }
 
-MksBasicTable.prototype.SetStriped = function () {
+CoreUIBasicTable.prototype.SetStriped = function () {
 	this.Striped = true;
 }
 
-MksBasicTable.prototype.ShowRowNumber = function (value) {
+CoreUIBasicTable.prototype.ShowRowNumber = function (value) {
 	this.RowsNumber = value;
 }
 
-MksBasicTable.prototype.ShowHeader = function (value) {
+CoreUIBasicTable.prototype.ShowHeader = function (value) {
 	this.HeaderShow = value;
 }
 
-MksBasicTable.prototype.SetActions = function (html) {
-    document.getElementById(this.WorkingObject.id+"_baisc_table_actions").innerHTML = html;
+CoreUIBasicTable.prototype.SetActions = function (html) {
+    document.getElementById(this.WorkingObject+"_basic_table_actions").innerHTML = html;
 }
 
-MksBasicTable.prototype.SetSchema = function (schema) {
+CoreUIBasicTable.prototype.SetSchema = function (schema) {
     this.Head = "";
     for (idx = 0; idx < schema.length; idx++) {
         this.Head += "<th scope='col'>" + schema[idx] + "</th>";
     }
 }
 
-MksBasicTable.prototype.CleanData = function () {
-    this.Data = null;
+CoreUIBasicTable.prototype.RemoveRow = function (row_index) {
+    var row_id = this.WidgetID+"_row_"+row_index;
+    var obj = document.getElementById(row_id);
+    obj.parentElement.removeChild(obj);
+    this.Data.splice(row_index-1, 1);
 }
 
-MksBasicTable.prototype.SetData = function (data) {
+CoreUIBasicTable.prototype.SetData = function (data) {
 	this.Body = "";
 
     var length = data.length;
@@ -175,29 +280,41 @@ MksBasicTable.prototype.SetData = function (data) {
         this.CountRight = length + " (" + this.Data.length + ")";
         this.LastSlice = parseInt(this.Data.length / this.Window) + 1
     } 
-
-    for (idx = 0; idx < length; idx++) {
-        if (this.RowsNumber == true) {
-            this.Body += "<tr><th scope='row'>"+(idx+1)+"</th>";
-        } else {
-            this.Body += "<tr>";
-        }
-        
-        for (ydx = 0; ydx < data[idx].length; ydx++) {
-            this.Body += "<td>" + data[idx][ydx] + "</td>";
-        }
-        this.Body += "</tr>";
-    }
 }
 
-MksBasicTable.prototype.AppendSummary = function (data) {
+CoreUIBasicTable.prototype.AppendSummary = function (data) {
     this.Body += "<tr class='table-dark'>";
     for (idx = 0; idx < data.length; idx++) {
         this.Body += "<td>"+data[idx]+"</td>";
     } this.Body += "</tr>";
 }
 
-MksBasicTable.prototype.LeftClick = function () {
+CoreUIBasicTable.prototype.AddRow = function (row) {
+    var idx = this.Data.length + 1;
+    this.Data.push(row);
+
+    // Build body table
+    this.Body = "";
+    var length = this.Data.length;
+    for (idx = 0; idx < length; idx++) {
+        if (this.RowsNumber == true) {
+            this.Body += "<tr id='"+this.WidgetID+"_row_"+(idx+1)+"'><th scope='row'>"+(idx+1)+"</th>";
+        } else {
+            this.Body += "<tr id='"+this.WidgetID+"_row_"+(idx+1)+"'>";
+        }
+        
+        for (ydx = 0; ydx < row.length; ydx++) {
+            this.Body += "<td>" + row[ydx] + "</td>";
+        }
+        this.Body += "</tr>";
+    }
+
+    document.getElementById(this.WidgetID+"_basic_table_body").innerHTML = this.Body;
+
+    return idx;
+}
+
+CoreUIBasicTable.prototype.LeftClick = function () {
     this.Body = "";
 
     if (this.Data === undefined || this.Data === null) {
@@ -243,16 +360,16 @@ MksBasicTable.prototype.LeftClick = function () {
         }
         this.Body += "</tr>";
     }
-    document.getElementById(this.WorkingObject.id+"_baisc_table_body").innerHTML = this.Body;
-    document.getElementById(this.WorkingObject.id+"_baisc_table_listing_index_left").innerHTML  = this.CountLeft;
-    document.getElementById(this.WorkingObject.id+"_baisc_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
+    document.getElementById(this.WorkingObject+"_basic_table_body").innerHTML = this.Body;
+    document.getElementById(this.WorkingObject+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
+    document.getElementById(this.WorkingObject+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
         this.UIChangeEvent();
     }
 }
 
-MksBasicTable.prototype.RighClick = function () {
+CoreUIBasicTable.prototype.RighClick = function () {
     this.Body = "";
 
     if (this.Data === undefined || this.Data === null) {
@@ -294,16 +411,16 @@ MksBasicTable.prototype.RighClick = function () {
         }
         this.Body += "</tr>";
     }
-    document.getElementById(this.WorkingObject.id+"_baisc_table_body").innerHTML = this.Body;
-    document.getElementById(this.WorkingObject.id+"_baisc_table_listing_index_left").innerHTML  = this.CountLeft;
-    document.getElementById(this.WorkingObject.id+"_baisc_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
+    document.getElementById(this.WorkingObject+"_basic_table_body").innerHTML = this.Body;
+    document.getElementById(this.WorkingObject+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
+    document.getElementById(this.WorkingObject+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
         this.UIChangeEvent();
     }
 }
 
-MksBasicTable.prototype.FirstClick = function () {
+CoreUIBasicTable.prototype.FirstClick = function () {
     this.Body = "";
 
     if (this.Data === undefined || this.Data === null) {
@@ -334,16 +451,16 @@ MksBasicTable.prototype.FirstClick = function () {
         this.Body += "</tr>";
     }
 
-    document.getElementById(this.WorkingObject.id+"_baisc_table_body").innerHTML = this.Body;
-    document.getElementById(this.WorkingObject.id+"_baisc_table_listing_index_left").innerHTML  = this.CountLeft;
-    document.getElementById(this.WorkingObject.id+"_baisc_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
+    document.getElementById(this.WorkingObject+"_basic_table_body").innerHTML = this.Body;
+    document.getElementById(this.WorkingObject+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
+    document.getElementById(this.WorkingObject+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
         this.UIChangeEvent();
     }
 }
 
-MksBasicTable.prototype.LastClick = function () {
+CoreUIBasicTable.prototype.LastClick = function () {
     this.Body = "";
 
     if (this.Data === undefined || this.Data === null) {
@@ -379,93 +496,11 @@ MksBasicTable.prototype.LastClick = function () {
         this.Body += "</tr>";
     }
 
-    document.getElementById(this.WorkingObject.id+"_baisc_table_body").innerHTML = this.Body;
-    document.getElementById(this.WorkingObject.id+"_baisc_table_listing_index_left").innerHTML  = this.CountLeft;
-    document.getElementById(this.WorkingObject.id+"_baisc_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
+    document.getElementById(this.WorkingObject+"_basic_table_body").innerHTML = this.Body;
+    document.getElementById(this.WorkingObject+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
+    document.getElementById(this.WorkingObject+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
         this.UIChangeEvent();
     }
-}
-
-MksBasicTable.prototype.Build = function (obj) {
-    this.WorkingObject = obj;
-    var html = this.Content;
-
-    var HostingId = this.WorkingObject.id;
-    html = html.split("[HOST_ID]").join(HostingId);
-	
-	if (this.Striped == true) {
-		html = html.split("[STRIPED]").join("table-striped");
-	} else {
-		html = html.split("[STRIPED]").join('');
-	}
-	
-    if (this.HeaderShow == true) {
-        html = html.split("[HEAD]").join(this.Head);
-    } else {
-        html = html.split("[HEAD]").join("");
-    }
-    
-    html = html.split("[BODY]").join(this.Body);
-    obj.innerHTML = html;
-
-    if (this.Listing == false) {
-        document.getElementById(HostingId+"_baisc_table_listing_nav").classList.add("d-none");
-    } else {
-        
-        this.objLeft = document.createElement("small");
-        this.objLeft.style.color = "blue";
-        this.objLeft.style.cursor = "pointer";
-        this.objLeft.innerHTML = "Previous";
-        this.objLeft.classList.add("page-link");
-        this.objLeft.classList.add("text-muted");
-        this.objLeft.onclick = this.LeftClick.bind(this);
-
-        this.objRight = document.createElement("small");
-        this.objRight.style.color = "blue";
-        this.objRight.style.cursor = "pointer";
-        this.objRight.innerHTML = "Next";
-        this.objRight.classList.add("page-link");
-        this.objRight.classList.add("text-muted");
-        this.objRight.onclick = this.RighClick.bind(this);
-
-        this.objFirst = document.createElement("small");
-        this.objFirst.style.color = "blue";
-        this.objFirst.style.cursor = "pointer";
-        this.objFirst.innerHTML = "First";
-        this.objFirst.classList.add("page-link");
-        this.objFirst.classList.add("text-muted");
-        this.objFirst.onclick = this.FirstClick.bind(this);
-
-        this.objLast = document.createElement("small");
-        this.objLast.style.color = "blue";
-        this.objLast.style.cursor = "pointer";
-        this.objLast.innerHTML = "Last";
-        this.objLast.classList.add("page-link");
-        this.objLast.classList.add("text-muted");
-        this.objLast.onclick = this.LastClick.bind(this);
-
-        document.getElementById(HostingId+"_baisc_table_listing_index_left").innerHTML  = this.CountLeft;
-        document.getElementById(HostingId+"_baisc_table_listing_index_right").innerHTML = this.CountRight;
-        document.getElementById(HostingId+"_baisc_table_listing_left").appendChild(this.objLeft);
-        document.getElementById(HostingId+"_baisc_table_listing_right").appendChild(this.objRight);
-        document.getElementById(HostingId+"_baisc_table_listing_first").appendChild(this.objFirst);
-        document.getElementById(HostingId+"_baisc_table_listing_last").appendChild(this.objLast);
-        document.getElementById(HostingId+"_baisc_table_listing_nav").classList.remove("d-none");
-    }
-}
-
-MksBasicTable.prototype.Remove = function () {
-    if (this.WorkingObject !== undefined && this.WorkingObject !== null) {
-		this.WorkingObject.parentNode.removeChild(this.WorkingObject);
-	}
-}
-
-MksBasicTable.prototype.Show = function () {
-    document.getElementById(this.WorkingObject.id+"_baisc_table_content").classList.remove("d-none");
-}
-
-MksBasicTable.prototype.Hide = function () {
-    document.getElementById(this.WorkingObject.id+"_baisc_table_content").classList.add("d-none");
 }

@@ -6,6 +6,7 @@ function RemoteApps(app) {
     this.UsersEventCallbacks = [];
     this.Applications = {};
     this.Application.RegisterEventHandler("users", this.UsersHandlers, this);
+    this.ApplicationDisconnectedEventCallback = null;
 
     return this;
 }
@@ -20,7 +21,7 @@ RemoteApps.prototype.RegisterUserEvent = function(callback) {
 }
 
 RemoteApps.prototype.UsersHandlers = function(user, scope) {
-    console.log("UsersHandlers", user, scope);
+    // console.log("UsersHandlers", user, scope);
 
     var hash = user.info.data.hash;
     var user_exist = scope.Applications.hasOwnProperty(hash);
@@ -41,6 +42,7 @@ RemoteApps.prototype.UsersHandlers = function(user, scope) {
                 break;
             case "del":
                 // Remove user from list
+                delete scope.Applications[hash];
                 break;
         }
     } else {
@@ -60,7 +62,8 @@ RemoteApps.prototype.UsersHandlers = function(user, scope) {
         name: user.info.data.name,
         identification: user.info.data.identification,
         event: user.event,
-        hash: hash
+        hash: hash,
+        ts: user.info.timestamp
     };
     
     for (idx in scope.UsersEventCallbacks) {
@@ -69,11 +72,36 @@ RemoteApps.prototype.UsersHandlers = function(user, scope) {
 }
 
 RemoteApps.prototype.IsConnect = function(hash) {
-    return this.Applications[hash].is_connected;
+    var user_exist = this.Applications.hasOwnProperty(hash);
+    if (user_exist) {
+        return this.Applications[hash].is_connected;
+    }
+
+    return false;
+}
+
+RemoteApps.prototype.ApplicationDisconnectedEvent = function(scope, name, identity) {
+    var user_exist = scope.Applications.hasOwnProperty(identity);
+    if (user_exist == false) {
+        return false
+    }
+
+    if (scope.ApplicationDisconnectedEventCallback != null) {
+        scope.ApplicationDisconnectedEventCallback(name, identity);
+    }
+
+    // Delete this application
+    delete scope.Applications[identity];
 }
 
 RemoteApps.prototype.Connect = function(hash, modules, callback) {
     var self = this;
+
+    var user_exist = this.Applications.hasOwnProperty(hash);
+    if (user_exist == false) {
+        return false
+    }
+
     var app_info = this.Applications[hash].info;
     console.log("Connect", this.Applications[hash], app_info);
 
@@ -81,6 +109,9 @@ RemoteApps.prototype.Connect = function(hash, modules, callback) {
     for (idx in modules) {
         app.Application.AppendModule(modules[idx]);
     }
+
+    app.Application.SetIdentity(hash);
+    app.Application.RegisterOnCloseEvent(this.ApplicationDisconnectedEvent, this);
 
     app.Application.UserModulesLoadedCallback = function(scope) {
         console.log("UserModulesLoadedCallback");
@@ -95,9 +126,36 @@ RemoteApps.prototype.Connect = function(hash, modules, callback) {
 }
 
 RemoteApps.prototype.Disconnect = function(hash) {
-    this.Applications[hash].Application.Disconnect();
+    var user_exist = this.Applications.hasOwnProperty(hash);
+    if (user_exist) {
+        this.Applications[hash].Application.Disconnect();
+        return true;
+    }
+    
+    return false;
 }
 
 RemoteApps.prototype.GetAPI = function(callback) {
     
+}
+
+RemoteApps.prototype.GetApplication = function(hash) {
+    if (this.Applications.hasOwnProperty(hash) == false) {
+        return null;
+    }
+
+    return this.Applications[hash].Application;
+}
+
+RemoteApps.prototype.SendSonar = function(name, category, group, type) {
+    this.Application.API.SendCustomCommand("find_neighbors", {
+        async: false,
+        info: {
+            name: name,
+            category: category,
+            group: group,
+            type: type
+        }
+    }, function(data, error) {
+    });
 }

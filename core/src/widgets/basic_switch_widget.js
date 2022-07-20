@@ -1,0 +1,70 @@
+function CoreUIBasicSwitchButtonWidget (scope) {
+	self = this;
+
+    this.Scope          = scope;
+    this.WorkingObject  = null;
+    this.Content        = `
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div>
+                            <h6 class="my-0" style="color: #2A7D8D; cursor: pointer;">[NAME]</h6>
+                            <small class="text-muted">[DESCRIPTION]</small>
+                        </div>
+                        <div id="[ID]_basic_switch_button"></div>
+                    </li>
+                </ul>
+    `;
+    this.SwitchButton   = null;
+    this.Info           = null;
+    this.SelectedValue  = null;
+
+    if (scope.Object.hasOwnProperty("CoreUIWidgets") == false) {   
+		scope.Object.CoreUIWidgets = {};
+	}
+    this.MyPath = this.Scope.Path+`.CoreUIWidgets.[ID]`;
+
+	return this;
+}
+
+CoreUIBasicSwitchButtonWidget.prototype.Build = function (id, info) {
+    this.WorkingObject  = document.getElementById(id);
+    this.WidgetID       = id+"switch_button_widget";
+    var html            = this.Content;
+
+    this.Scope.Object.CoreUIWidgets[id] = this;
+    this.MyPath = this.MyPath.split("[ID]").join(id);
+    this.Info = info;
+
+    // Update content with user info
+    html = html.split("[ID]").join(this.WidgetID);
+    html = html.split("[NAME]").join(info.name);
+    html = html.split("[DESCRIPTION]").join(info.description);
+    // Set HTML
+    this.WorkingObject.innerHTML = html;
+    // Build basic switch button
+    this.SwitchButton = new CoreUIBasicSwitchButton();
+    this.SwitchButton.Build(this.WidgetID+"_basic_switch_button", {
+        name: info.name,
+        state: info.state,
+        onclick_callback: this.MyPath+".OnClickCallback"
+    });
+}
+
+CoreUIBasicSwitchButtonWidget.prototype.Remove = function () {
+    this.Slider.Remove();
+    if (this.WorkingObject !== undefined && this.WorkingObject !== null) {
+		this.WorkingObject.parentNode.removeChild(this.WorkingObject);
+	}
+}
+
+CoreUIBasicSwitchButtonWidget.prototype.GetValue = function () {
+    return this.SwitchButton.GetValue();
+}
+
+CoreUIBasicSwitchButtonWidget.prototype.SetValue = function (value) {
+    this.SwitchButton.SetValue(value);
+}
+
+CoreUIBasicSwitchButtonWidget.prototype.OnClickCallback = function(obj, id, name) {
+    this.Info.onclick_callback(this.Scope.Object, obj, id, name);
+}

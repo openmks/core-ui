@@ -3,7 +3,7 @@ function CoreUIBasicSlider () {
 
     this.WorkingObject  = null;
     this.WidgetID       = null;
-    this.Content        = `<input type="range" class="custom-range" min="[MIN]" max="[MAX]" step="[STEP]" id="[ID]" oninput="[ONINPUT_CALLBACK](this.value);" onchange="[ONCHANGE_CALLBACK](this.value);">`;
+    this.Content        = `<input type="range" class="custom-range" min="[MIN]" max="[MAX]" step="[STEP]" id="[ID]" onmousedown="[ONMOUSEDOWN_CALLBACK]();" onmouseup="[ONMOUSEUP_CALLBACK]();" oninput="[ONINPUT_CALLBACK](this.value);" onchange="[ONCHANGE_CALLBACK](this.value);">`;
 	this.Slider         = null;
 
 	return this;
@@ -21,6 +21,8 @@ CoreUIBasicSlider.prototype.Build = function (id, info) {
     html = html.split("[ID]").join(this.WidgetID);
     html = html.split("[ONINPUT_CALLBACK]").join(info.oninput_callback);
     html = html.split("[ONCHANGE_CALLBACK]").join(info.onchange_callback);
+    html = html.split("[ONMOUSEDOWN_CALLBACK]").join(info.onmousedown_callback);
+    html = html.split("[ONMOUSEUP_CALLBACK]").join(info.onmouseup_callback);
     // Set HTML
     this.WorkingObject.innerHTML = html;
 }
@@ -42,3 +44,4 @@ CoreUIBasicSlider.prototype.Hide = function () {
 CoreUIBasicSlider.prototype.SetValue = function (value) {
     document.getElementById(this.WidgetID).value = value;
 }
+

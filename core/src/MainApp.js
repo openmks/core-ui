@@ -1,13 +1,13 @@
 function Application(name) {
     var self = this;
-    this.name = name;
+    this.Name = name;
     // Get makesense api instanse.
     // this.API = MkSAPIBuilder.GetInstance();
     this.API = new MkSAPI();
     this.API.DetectHost();
     // Default handler
     this.API.OnUnexpectedDataArrived = function (packet) {
-        console.log(packet);
+        console.log("OnUnexpectedDataArrived", packet);
     }
     this.API.ModulesLoadedCallback = function () {
         console.log("Modules Loaded");
@@ -24,12 +24,17 @@ function Application(name) {
     this.SelectedMenu = null;
     this.API.ApplicationModules.Modal = new MksBasicModal("GLOBAL");
     this.API.ApplicationModules.Error = new MksBasicModal("ERROR");
-    this.UserModulesLoadedCallback = null;
+    this.UserModulesLoadedCallback  = null;
+    this.WSDisconnectedBlock        = null;
+    this.Identity                   = null
 
     // this.API.AppendModule("pidaptor");
     // this.API.AppendModule("piterm");
 
     return this;
+}
+Application.prototype.SetIdentity = function(identity) {
+    this.Identity = identity;
 }
 Application.prototype.PostMessage = function(obj) {
     window.parent.postMessage(obj, "*")
@@ -54,6 +59,7 @@ Application.prototype.Connect = function(ip, port, callback) {
     console.log("Connect Application");
     // Python will emit messages
     self.API.OnNodeChangeCallback = self.OnChangeEvent.bind(self);
+    self.API.OnWSCloseCallback = self.OnCloseEvent.bind(self);
     this.API.ConnectLocalWS(ip, port, function() {
         console.log("Connected to local websocket");
 
@@ -69,6 +75,17 @@ Application.prototype.OnChangeEvent = function(packet) {
     var event = packet.payload.event;
     var data = packet.payload.data;
     this.Publish(event, data);
+}
+Application.prototype.RegisterOnCloseEvent = function(callback, scope) {
+    this.WSDisconnectedBlock = {
+        "callback": callback,
+        "scope": scope
+    }
+}
+Application.prototype.OnCloseEvent = function() {
+    if (this.WSDisconnectedBlock != null) {
+        this.WSDisconnectedBlock.callback(this.WSDisconnectedBlock.scope, this.Name, this.Identity);
+    }
 }
 Application.prototype.ShowInfoWindow = function (header, content, callback) {
     this.API.ApplicationModules.Error.Remove();

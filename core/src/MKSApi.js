@@ -110,7 +110,7 @@ MkSAPI.prototype.ConnectLocalWS = function (ip, port, callback) {
 	this.WS.onclose = function () {
 		console.log("[LOCAL WEBSOCKET] Connection closed...");
 		if (null != self.OnWSCloseCallback) {
-			self.OnWSCloseCallback(event.data);
+			self.OnWSCloseCallback();
 		}
 	};
 }
