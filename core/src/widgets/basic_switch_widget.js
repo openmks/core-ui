@@ -45,7 +45,7 @@ CoreUIBasicSwitchButtonWidget.prototype.Build = function (id, info) {
     this.SwitchButton = new CoreUIBasicSwitchButton();
     this.SwitchButton.Build(this.WidgetID+"_basic_switch_button", {
         name: info.name,
-        state: info.state,
+        state: (info.state) ? "checked": "",
         onclick_callback: this.MyPath+".OnClickCallback"
     });
 }

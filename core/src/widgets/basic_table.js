@@ -160,8 +160,8 @@ CoreUIBasicTable.prototype.Build = function (id) {
             this.Body += "<tr id='"+this.WidgetID+"_row_"+(idx+1)+"'>";
         }
         
-        for (ydx = 0; ydx < data[idx].length; ydx++) {
-            this.Body += "<td>" + data[idx][ydx] + "</td>";
+        for (ydx = 0; ydx < this.Data[idx].length; ydx++) {
+            this.Body += "<td>" + this.Data[idx][ydx] + "</td>";
         }
         this.Body += "</tr>";
     }
@@ -267,7 +267,7 @@ CoreUIBasicTable.prototype.RemoveRow = function (row_index) {
 }
 
 CoreUIBasicTable.prototype.SetData = function (data) {
-	this.Body = "";
+    this.Data = data;
 
     var length = data.length;
     if (this.Listing == true) {
@@ -275,11 +275,10 @@ CoreUIBasicTable.prototype.SetData = function (data) {
             length = this.Window;
         }
 
-        this.Data = data;
         this.CountLeft = 0;
         this.CountRight = length + " (" + this.Data.length + ")";
         this.LastSlice = parseInt(this.Data.length / this.Window) + 1
-    } 
+    }
 }
 
 CoreUIBasicTable.prototype.AppendSummary = function (data) {
