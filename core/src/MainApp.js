@@ -103,6 +103,17 @@ Application.prototype.HideInfoWindow = function (header, content) {
 Application.prototype.AppendModule = function (name) {
     this.API.AppendModule(name);
 }
+Application.prototype.GetModalId = function() {
+    return "id_basic_modal_GLOBAL_content";
+}
+Application.prototype.ShowModalEmpty = function(title, footer, size) {
+    this.API.ApplicationModules.Modal.Remove();
+    this.API.ApplicationModules.Modal.SetTitle(title);
+    this.API.ApplicationModules.Modal.SetContent("");
+    this.API.ApplicationModules.Modal.SetFooter(footer);
+    this.API.ApplicationModules.Modal.Build(size);
+    this.API.ApplicationModules.Modal.Show();
+}
 Application.prototype.ShowModal = function(title, content, footer, size) {
     this.API.ApplicationModules.Modal.Remove();
     this.API.ApplicationModules.Modal.SetTitle(title);

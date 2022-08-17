@@ -5,7 +5,7 @@ function CoreUIBasicDropDown () {
     this.WidgetID       = null;
     this.Content        = `
         <div class="custom-control custom-radio xmt-3">
-            <select class="custom-select mt-3" id="[ID]_items">
+            <select class="custom-select mt-3" id="[ID]_items" onchange="[ONCHANGE_HANDLER](this);">
             </select>
         </div>
     `;
@@ -20,6 +20,7 @@ function CoreUIBasicDropDown () {
     `;
     this.RowView = `<span class="dropdown-item" style="cursor:pointer" onclick="[ONCLICK_HANDLER]">[NAME]</span>`;
     */
+   this.OnChange = null;
 	
 	return this;
 }
@@ -31,6 +32,7 @@ CoreUIBasicDropDown.prototype.Build = function (id) {
 
     // Update content with user info
     html = html.split("[ID]").join(this.WidgetID);
+    html = html.split("[ONCHANGE_HANDLER]").join(this.OnChange);
     // Set HTML
     this.WorkingObject.innerHTML = html;
     feather.replace();
