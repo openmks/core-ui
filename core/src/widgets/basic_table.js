@@ -153,6 +153,13 @@ CoreUIBasicTable.prototype.Build = function (id) {
 
     // Build body table
     var length = this.Data.length;
+
+    if (this.Listing == true) {
+        if (this.Window < length) {
+            length = this.Window;
+        }
+    }
+    
     for (idx = 0; idx < length; idx++) {
         if (this.RowsNumber == true) {
             this.Body += "<tr id='"+this.WidgetID+"_row_"+(idx+1)+"'><th scope='row'>"+(idx+1)+"</th>";
@@ -173,7 +180,6 @@ CoreUIBasicTable.prototype.Build = function (id) {
     if (this.Listing == false) {
         document.getElementById(this.WidgetID+"_basic_table_listing_nav").classList.add("d-none");
     } else {
-        
         this.objLeft = document.createElement("small");
         this.objLeft.style.color = "blue";
         this.objLeft.style.cursor = "pointer";
@@ -359,9 +365,9 @@ CoreUIBasicTable.prototype.LeftClick = function () {
         }
         this.Body += "</tr>";
     }
-    document.getElementById(this.WorkingObject+"_basic_table_body").innerHTML = this.Body;
-    document.getElementById(this.WorkingObject+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
-    document.getElementById(this.WorkingObject+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
+    document.getElementById(this.WidgetID+"_basic_table_body").innerHTML = this.Body;
+    document.getElementById(this.WidgetID+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
+    document.getElementById(this.WidgetID+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
         this.UIChangeEvent();
@@ -410,9 +416,9 @@ CoreUIBasicTable.prototype.RighClick = function () {
         }
         this.Body += "</tr>";
     }
-    document.getElementById(this.WorkingObject+"_basic_table_body").innerHTML = this.Body;
-    document.getElementById(this.WorkingObject+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
-    document.getElementById(this.WorkingObject+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
+    document.getElementById(this.WidgetID+"_basic_table_body").innerHTML = this.Body;
+    document.getElementById(this.WidgetID+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
+    document.getElementById(this.WidgetID+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
         this.UIChangeEvent();
@@ -450,9 +456,9 @@ CoreUIBasicTable.prototype.FirstClick = function () {
         this.Body += "</tr>";
     }
 
-    document.getElementById(this.WorkingObject+"_basic_table_body").innerHTML = this.Body;
-    document.getElementById(this.WorkingObject+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
-    document.getElementById(this.WorkingObject+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
+    document.getElementById(this.WidgetID+"_basic_table_body").innerHTML = this.Body;
+    document.getElementById(this.WidgetID+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
+    document.getElementById(this.WidgetID+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
         this.UIChangeEvent();
@@ -495,9 +501,9 @@ CoreUIBasicTable.prototype.LastClick = function () {
         this.Body += "</tr>";
     }
 
-    document.getElementById(this.WorkingObject+"_basic_table_body").innerHTML = this.Body;
-    document.getElementById(this.WorkingObject+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
-    document.getElementById(this.WorkingObject+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
+    document.getElementById(this.WidgetID+"_basic_table_body").innerHTML = this.Body;
+    document.getElementById(this.WidgetID+"_basic_table_listing_index_left").innerHTML  = this.CountLeft;
+    document.getElementById(this.WidgetID+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
         this.UIChangeEvent();
