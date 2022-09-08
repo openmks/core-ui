@@ -1,49 +1,40 @@
-function CoreUIMatrix () {
+function CoreUIMatrix (params) {
+    CoreUIObject.call(this, params);
 	self = this;
-
-    this.WorkingObject  = null;
-    this.WidgetID       = null;
-    this.Content        = "";
-	this.Slider         = null;
+ 
+    this.ObjectName     = "core_ui_matrix";
     this.Devider        = 0;
-    this.X              = 0;
-    this.Y              = 0;
+
+    this.X              = (params.x === null || params.x === undefined) ? 0 : params.x;
+    this.Y              = (params.y === null || params.y === undefined) ? 0 : params.y;
+    this.WidthCells     = (params.width_cells === null || params.width_cells === undefined) ? null : params.width_cells;
+    this.BorderColor    = (params.border_color === null || params.border_color === undefined) ? "" : params.border_color;
 
 	return this;
 }
 
-CoreUIMatrix.prototype.Build = function (id, x, y) {
-    this.WorkingObject  = document.getElementById(id);
-    this.WidgetID       = id+"_core_ui_matrix";
-    var html            = this.Content;
+CoreUIMatrix.prototype              = Object.create(CoreUIObject.prototype);
+CoreUIMatrix.prototype.constructor  = CoreUIMatrix;
 
-    this.X = x;
-    this.Y = y;
-    this.Devider = 12 / x;
-    for (var idy = 0; idy < y; idy++) {
-        html += `<div class="row" id="`+this.WidgetID+`_row_`+(idy+1)+`">`
-        for (var idx = 0; idx < x; idx++) {
-            html += `<div class="col-xl-`+this.Devider+`" id="`+this.WidgetID+`_`+(idy+1)+`_`+(idx+1)+`"></div>`
+CoreUIMatrix.prototype.PreBuild = function (params) {
+    this.HTML = `<table style="width: 100%"><tbody style="width: 100%">`;
+    for (var idy = 0; idy < this.Y; idy++) {
+        this.HTML += `<tr id="`+this.WidgetID+`_row_`+(idy+1)+`" style="width: 100%">`;
+        var border = (this.BorderColor == "") ? "" : `border: 1px solid `+this.BorderColor+`;`;
+        for (var idx = 0; idx < this.X; idx++) {
+            if (this.WidthCells !== null && parseInt(this.X) == this.WidthCells.length) {
+                this.HTML += `<td id="`+this.WidgetID+`_`+(idy+1)+`_`+(idx+1)+`" style="width: `+this.WidthCells[idx]+`%;`+border+`"></td>`;
+            } else {
+                this.HTML += `<td id="`+this.WidgetID+`_`+(idy+1)+`_`+(idx+1)+`" style="width: `+100.0 / parseFloat(this.X)+`%;`+border+`"></td>`;
+            }
         }
-        html += `</div>`;
+        this.HTML += `</tr>`;
     }
-    
-    // Set HTML
-    this.WorkingObject.innerHTML = html;
+    this.HTML += `</tbody></table>`;
 }
 
-CoreUIMatrix.prototype.Remove = function () {
-    if (this.WorkingObject !== undefined && this.WorkingObject !== null) {
-		this.WorkingObject.parentNode.removeChild(this.WorkingObject);
-	}
-}
+CoreUIMatrix.prototype.PostBuild = function (params) {
 
-CoreUIMatrix.prototype.Show = function () {
-    document.getElementById(this.WidgetID).classList.remove("d-none");
-}
-
-CoreUIMatrix.prototype.Hide = function () {
-    document.getElementById(this.WidgetID).classList.add("d-none");
 }
 
 CoreUIMatrix.prototype.SetValue = function (x, y, data) {
@@ -57,21 +48,21 @@ CoreUIMatrix.prototype.SetValue = function (x, y, data) {
     }
 }
 
+CoreUIMatrix.prototype.GetValue = function (x, y) {
+    var id = this.WidgetID+"_"+y+"_"+x;
+    var obj = document.getElementById(id);
+
+    if (obj !== undefined || obj !== null) {
+        return obj.innerHTML;
+    } else {
+        console.log("CoreUIMatrix [GetValue] Cannot find object.");
+    }
+}
+
 CoreUIMatrix.prototype.GetCellId = function (x, y) {
     return this.WidgetID+"_"+y+"_"+x;
 }
 
 CoreUIMatrix.prototype.GetRowId = function (y) {
     return this.WidgetID+`_row_`+y;
-}
-
-CoreUIMatrix.prototype.AppendRow = function () {
-    this.Y += 1;
-    html = `<div class="row" id="`+this.WidgetID+`_row_`+this.Y+`">`
-    for (var idx = 0; idx < this.X; idx++) {
-        html += `<div class="col-xl-`+this.Devider+`" id="`+this.WidgetID+`_`+this.Y+`_`+(idx+1)+`"></div>`
-    }
-    html += `</div>`;
-    // Set HTML
-    this.WorkingObject.innerHTML += html;
 }
