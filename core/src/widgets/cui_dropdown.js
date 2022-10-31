@@ -4,7 +4,7 @@ function CoreUIDropDown (params) {
 
     this.ObjectName = "core_ui_dropdown";
     this.Content    = `
-        <div class="custom-control custom-radio xmt-3">
+        <div id="[ID]" class="custom-control custom-radio xmt-3">
             <select class="custom-select mt-3" id="[ID]_items" onchange="[ONCHANGE_HANDLER](this, this.selectedIndex, this.options[this.selectedIndex].text, this.options[this.selectedIndex].value);">
             </select>
         </div>
@@ -30,7 +30,7 @@ CoreUIDropDown.prototype.UpdateSelected = function (name) {
 CoreUIDropDown.prototype.AppendItem = function (item) {
     var obj = document.getElementById(this.WidgetID + "_items");
     var html = this.RowView;
-    html = html.split("[ID]").join(this.WidgetID);
+    
     html = html.split("[NAME]").join(item.name);
     html = html.split("[VALUE]").join(item.value);
     obj.innerHTML += html;

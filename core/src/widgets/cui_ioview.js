@@ -11,9 +11,35 @@ function CoreUIIOBoxView (params) {
             <span id="[ID]_value" style="margin:5px; text-align: center">[VALUE] [UNIT]</span></strong>
         </div>
     `;
-    this.Name = params.name;
-    this.Value = params.value;
-    this.Unit = params.unit;
+    this.Params = params;
+
+    if (params.design !== undefined) {
+        switch (params.design) {
+            case "box_1":
+                this.Content = `
+                    <div class="card mb-4 shadow-sm" style="margin:5px;">
+                        <div class="card-header" style="text-align: center">
+                            <span id="[ID]_name" style="color: #2A7D8D; font-size: small; text-align: center">[NAME]</span>
+                        </div>
+                        <span id="[ID]_value" style="margin:5px; text-align: center">[VALUE] [UNIT]</span></strong>
+                    </div>
+                `;
+                break;
+            case "box_2":
+                this.Content = `
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0" id="[ID]_name">[NAME]</h6>
+                                <small class="text-muted">[ADDITIONAL]</small>
+                            </div>
+                            <span class="text-muted" id="[ID]_value">[VALUE] [UNIT]</span>
+                        </li>
+                    </ul>
+                `;
+                break;
+        }
+    }
 
 	return this;
 }
@@ -22,9 +48,15 @@ CoreUIIOBoxView.prototype              = Object.create(CoreUIObject.prototype);
 CoreUIIOBoxView.prototype.constructor  = CoreUIIOBoxView;
 
 CoreUIIOBoxView.prototype.PreBuild = function (params) {
-    this.HTML = this.HTML.split("[NAME]").join(this.Name);
-    this.HTML = this.HTML.split("[VALUE]").join(this.Value);
-    this.HTML = this.HTML.split("[UNIT]").join(this.Unit);
+    this.HTML = this.HTML.split("[NAME]").join(this.Params.name);
+    this.HTML = this.HTML.split("[VALUE]").join(this.Params.value);
+    this.HTML = this.HTML.split("[UNIT]").join(this.Params.unit);
+
+    if (this.Params.additional === undefined) {
+        this.HTML = this.HTML.split("[ADDITIONAL]").join("");
+    } else {
+        this.HTML = this.HTML.split("[ADDITIONAL]").join(this.Params.additional);
+    }
 }
 
 CoreUIIOBoxView.prototype.GetValueID = function () {
@@ -32,6 +64,6 @@ CoreUIIOBoxView.prototype.GetValueID = function () {
 }
 
 CoreUIIOBoxView.prototype.SetValue = function (value) {
-    document.getElementById(this.WidgetID + "_value").innerHTML = value + " " + this.Unit;
+    document.getElementById(this.WidgetID + "_value").innerHTML = value + " " + this.Params.unit;
 }
 

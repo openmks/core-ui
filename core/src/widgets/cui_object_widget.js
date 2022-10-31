@@ -8,6 +8,7 @@ function CoreUIObjectWidget(scope, params) {
     this.WidgetID       = null;
     this.Content        = ``;
     this.MyPath         = ``;
+    this.IsModal        = false;
 
     if (scope !== undefined || scope !== null) {
         if (scope.Object.hasOwnProperty("CoreUIWidgets") == false) {   
@@ -61,6 +62,8 @@ CoreUIObjectWidget.prototype.Build = function (id) {
 
     this.PreBuild();
     // Set HTML
-    this.WorkingObject.innerHTML = this.HTML;
+    if (this.IsModal == false) {
+        this.WorkingObject.innerHTML = this.HTML;
+    }
     this.PostBuild();
 }

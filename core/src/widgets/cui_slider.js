@@ -27,5 +27,6 @@ CoreUISlider.prototype.PreBuild = function (params) {
 
 CoreUISlider.prototype.SetValue = function (value) {
     document.getElementById(this.WidgetID).value = value;
+    document.getElementById(this.WidgetID).onmouseup(value);
 }
 

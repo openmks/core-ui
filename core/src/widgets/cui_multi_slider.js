@@ -4,6 +4,7 @@ function CoreUIMultiSlider (params) {
 
     this.ObjectName = "core_ui_multislider";
     this.Info       = params;
+    /*
     this.Content    = `
         <div class="row justify-content-xl-center">
             <div class="col-xl-2">
@@ -16,6 +17,10 @@ function CoreUIMultiSlider (params) {
                 <span id="[ID]_range_right">[MAX]</span>
             </div>
         </div>
+    `;
+    */
+    this.Content    = `
+        <input id="[ID]_range_object" type="text" data-slider-min="[MIN]" data-slider-max="[MAX]" data-slider-step="[STEP]" data-slider-value="[[LEFT],[RIGHT]]" style="width:100%"/>
     `;
 
     this.SliderObject       = null;
@@ -44,9 +49,9 @@ CoreUIMultiSlider.prototype.PostBuild = function (params) {
     this.LeftValue  = this.Info.left;
     this.RightValue = this.Info.right;
 
-    this.SliderObjectLeft   = document.getElementById(this.WidgetID+"_range_left");
-    this.SliderObject       = document.getElementById(this.WidgetID+"_range_object");
-    this.SliderObjectRight  = document.getElementById(this.WidgetID+"_range_right");
+    //this.SliderObjectLeft   = document.getElementById(this.WidgetID+"_range_left");
+    //this.SliderObject       = document.getElementById(this.WidgetID+"_range_object");
+    //this.SliderObjectRight  = document.getElementById(this.WidgetID+"_range_right");
 
     this.Slider = new Slider("#"+this.WidgetID+"_range_object", {
         tooltip: 'always'
@@ -54,14 +59,14 @@ CoreUIMultiSlider.prototype.PostBuild = function (params) {
 
     var self = this;
     this.Slider.on("change", function(e) {
-        self.SliderObjectLeft.innerHTML  = e.newValue[0];
-        self.SliderObjectRight.innerHTML = e.newValue[1];
-        self.LeftValue  = e.newValue[0];
-        self.RightValue = e.newValue[1];
+        //self.SliderObjectLeft.innerHTML  = e.newValue[0];
+        //self.SliderObjectRight.innerHTML = e.newValue[1];
+        //self.LeftValue  = e.newValue[0];
+        //self.RightValue = e.newValue[1];
     });
 }
 
-MksMultiRangeSlider.prototype.GetValue = function () {
+CoreUIMultiSlider.prototype.GetValue = function () {
     var resp = [];
 
     resp.push(this.LeftValue);

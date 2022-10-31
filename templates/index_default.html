@@ -9,6 +9,8 @@
         <link href="{{ url_for('static', filename='js/core/lib/fontawesome-5.11.2/css/all.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='js/core/lib/bs-datepicker/bootstrap-datepicker.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='js/core/lib/7segemnts/segment7.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='js/core/src/widgets/mks_basic_styling.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='js/core/lib/bootstrap/css/bootstrap-slider.css') }}" rel="stylesheet">
     </head>
     <body>
         <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow" id="id_application_navbar_container">
@@ -35,6 +37,7 @@
         <script src="{{ url_for('static', filename='js/core/lib/gijgo/gijgo.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/lib/fontawesome-5.11.2/js/all.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/lib/bs-datepicker/bootstrap-datepicker.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/lib/chartjs/current/Chart.min.js') }}"></script>
 
         <script src="{{ url_for('static', filename='js/core/src/Users.js') }}"></script> 
         <script src="{{ url_for('static', filename='js/core/src/Network.js') }}"></script>        
@@ -57,7 +60,13 @@
         <script src="{{ url_for('static', filename='js/core/src/widgets/cui_slider.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/cui_multi_slider.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/cui_switch.js') }}"></script>
-
+        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_graph.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_canvas.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_expanders.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_image.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_table.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_basic_uploader_widget.js') }}"></script>
+        
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_drop_down.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_graph.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_modal.js') }}"></script>
@@ -73,6 +82,7 @@
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_switch_button.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_switch_widget.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_text_box.js') }}"></script>
+        
 
         <script type="text/javascript">
             var myVar       = "{{ data }}";

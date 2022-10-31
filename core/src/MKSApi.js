@@ -55,9 +55,10 @@ MkSAPI.prototype.ExecuteJS = function(content) {
 }
 
 MkSAPI.prototype.AppendCSS = function(content) {
+	console.log("AppendCSS");
 	var styleSheet = document.createElement("style");
-	styleSheet.type = "text/css";
-	styleSheet.innerText = content;
+	// styleSheet.type = "text/css";
+	styleSheet.textContent = content;
 	document.head.appendChild(styleSheet);
 }
 

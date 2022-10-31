@@ -21,7 +21,7 @@ function CoreUIWritingLabel (params) {
 	self = this;
  
     this.ObjectName = "core_ui_label";
-    this.Content    = `<br><span id="[ID]">[TEXT]</span>`;
+    this.Content    = `<span id="[ID]" style="font-family:[FAMILY]; font-size: [SIZE];">[TEXT]</span>`;
     this.Params      = params;
 
 	return this;
@@ -32,7 +32,14 @@ CoreUIWritingLabel.prototype.constructor  = CoreUIWritingLabel;
 
 CoreUIWritingLabel.prototype.PreBuild = function (params) {
     this.HTML = this.HTML.split("[TEXT]").join(this.Params.text);
+    this.HTML = this.HTML.split("[FAMILY]").join((this.Params.font === undefined || this.Params.font === null) ? "ariel" : this.Params.font);
+    this.HTML = this.HTML.split("[SIZE]").join((this.Params.size === undefined || this.Params.size === null) ? "small" : this.Params.size+"px");
 }
+
+CoreUIWritingLabel.prototype.SetFont = function (text) {
+    document.getElementById(this.WidgetID).style.fontfamily = text;
+}
+
 
 CoreUIWritingLabel.prototype.SetText = function (text) {
     document.getElementById(this.WidgetID).innerHTML = text;

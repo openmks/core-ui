@@ -14,11 +14,11 @@ function CoreUIMatrixWidget (scope, params) {
 CoreUIMatrixWidget.prototype              = Object.create(CoreUIObjectWidget.prototype);
 CoreUIMatrixWidget.prototype.constructor  = CoreUIMatrixWidget;
 
-CoreUIMatrixWidget.prototype.PreBuild = function (params) {
+CoreUIMatrixWidget.prototype.PreBuild = function () {
     
 }
 
-CoreUIMatrixWidget.prototype.PostBuild = function (params) {
+CoreUIMatrixWidget.prototype.PostBuild = function () {
     this.Matrix = new CoreUIMatrix({
         x: this.X,
         y: this.Y
