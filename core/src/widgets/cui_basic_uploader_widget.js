@@ -26,6 +26,7 @@ function CoreUIBasicUploaderWidget (scope, params) {
         </div>
     `;
     this.Params             = params;
+	this.FilePath 			= "";
     this.FileName 			= "";
 	this.FileSize 			= 0;
 	this.Reader 			= new FileReader();
@@ -76,7 +77,8 @@ function CoreUIBasicUploaderWidget (scope, params) {
 						content: dataToSend,
 						chunk: i+1,
 						chunk_size: (end - start),
-						chunks: chunks
+						chunks: chunks,
+						file_path: self.FilePath
 					}
 				}
 
@@ -111,6 +113,10 @@ CoreUIBasicUploaderWidget.prototype.PostBuild = function () {
 
 CoreUIBasicUploaderWidget.prototype.SetFileType = function (type) {
 	this.FileType = type;
+}
+
+CoreUIBasicUploaderWidget.prototype.SetFilePath = function (path) {
+	this.FilePath = path;
 }
 
 CoreUIBasicUploaderWidget.prototype.Upload = function () {

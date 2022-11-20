@@ -18,6 +18,7 @@ function CoreUIBasicSliderWidget (scope) {
     this.Info           = null;
     this.SelectedValue  = null;
     this.UpdateValueEnabled = true;
+    this.TimeStamp      = 0; 
 
     if (scope.Object.hasOwnProperty("CoreUIWidgets") == false) {   
 		scope.Object.CoreUIWidgets = {};
@@ -66,6 +67,10 @@ CoreUIBasicSliderWidget.prototype.SetValue = function (value) {
         return false;
     }
 
+    if (Date.now() - this.TimeStamp < 2000) {
+        return false;
+    }
+
     this.Slider.SetValue(value);
     document.getElementById(this.WidgetID+"_value").innerHTML = value;
     this.SelectedValue = value;
@@ -93,4 +98,5 @@ CoreUIBasicSliderWidget.prototype.OnMouseDownCallback = function () {
 CoreUIBasicSliderWidget.prototype.OnMouseUpCallback = function () {
     this.UpdateValueEnabled = true;
     this.Info.onmouseup_callback(this.Scope.Object, this.SelectedValue);
+    this.TimeStamp = Date.now()
 }

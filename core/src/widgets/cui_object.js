@@ -96,6 +96,25 @@ CoreUIObject.prototype.SetBackgroundImage = function(path) {
     document.getElementById(this.WidgetID).style.backgroundSize = "cover"; // contain
 }
 
+/*
+    [none, sm, "", lg]
+*/
+CoreUIObject.prototype.SetShadow = function(type) {
+    document.getElementById(this.WidgetID).classList.add("shadow-"+type);
+}
+
+CoreUIObject.prototype.SetRoundedCorners = function(type) {
+    document.getElementById(this.WidgetID).classList.add("rounded");
+}
+
+CoreUIObject.prototype.RemoveRoundedCorners = function(type) {
+    document.getElementById(this.WidgetID).classList.remove("rounded");
+}
+
+CoreUIObject.prototype.SetBorderColor = function(color) {
+    document.getElementById(this.WidgetID).style.borderColor  = color;
+}
+
 CoreUIObject.prototype.SetColor = function(color) {
     document.getElementById(this.WidgetID).style.color = color;
 }

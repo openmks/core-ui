@@ -19,6 +19,12 @@ function MkSAPI () {
 		'Count': 0,
 		'ModulesPathList': []
 	}
+	this.WidgetsList = {
+		'Count': 0,
+		'ModulesPathList': []
+	}
+	this.ApplicationModulesLoaded	= false;
+	this.WidgetsLoaded 				= false;
 
 	this.HostMap = {
         "mobile": {
@@ -232,6 +238,10 @@ MkSAPI.prototype.GetResourceContent = function (payload, callback) {
 	this.SendPacket("get_resource", payload, callback);
 }
 
+MkSAPI.prototype.GetWidgetContent = function (payload, callback) {
+	this.SendPacket("get_widget", payload, callback);
+}
+
 MkSAPI.prototype.UploadFileContent = function (payload) {
 	this.SendPacketNoResponse("upload_file", payload);
 }
@@ -253,6 +263,11 @@ MkSAPI.prototype.AppendModule = function(name) {
 	this.ApplicationModules.Count++;
 }
 
+MkSAPI.prototype.ImportWidget = function(name) {
+	this.WidgetsList.ModulesPathList.push(name+".js");
+	this.WidgetsList.Count++;
+}
+
 MkSAPI.prototype.GetModuleUI = function(name, callback) {
 	var self = this;
 	this.GetResourceContent({
@@ -272,6 +287,12 @@ MkSAPI.prototype.GetModules = function(name) {
 	}
 }
 
+MkSAPI.prototype.GetWidgets = function(name) {
+	for (key in this.WidgetsList.ModulesPathList) {
+		this.LoadWidget(this.WidgetsList.ModulesPathList[key]);
+	}
+}
+
 MkSAPI.prototype.LoadModule = function(name) {
 	var self = this;
 	this.GetResourceContent({
@@ -284,8 +305,33 @@ MkSAPI.prototype.LoadModule = function(name) {
 		self.ApplicationModules.Count--;
 		console.log(self.ApplicationModules.Count, name);
 		if (self.ApplicationModules.Count == 0) {
-			if (self.ModulesLoadedCallback != null) {
-				self.ModulesLoadedCallback();
+			self.ApplicationModulesLoaded = true;
+			if (self.WidgetsLoaded == true || self.WidgetsList.Count == 0) {
+				if (self.ModulesLoadedCallback != null) {
+					self.ModulesLoadedCallback();
+				}
+			}
+		}
+	});
+}
+
+MkSAPI.prototype.LoadWidget = function(path) {
+	var self = this;
+	this.GetWidgetContent({
+		"file_path": path
+	}, function(res, error) {
+		var payload = res.payload;
+		var js = self.ConvertHEXtoString(payload.content);
+		// Inject into DOM
+		self.ExecuteJS(js);
+		self.WidgetsList.Count--;
+		console.log(self.WidgetsList.Count, path);
+		if (self.WidgetsList.Count == 0) {
+			self.WidgetsLoaded = true;
+			if (self.ApplicationModulesLoaded == true || self.ApplicationModules.Count == 0) {
+				if (self.ModulesLoadedCallback != null) {
+					self.ModulesLoadedCallback();
+				}
 			}
 		}
 	});

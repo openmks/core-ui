@@ -32,7 +32,7 @@ function CoreUIBasicTabsWidget (scope, params) {
 CoreUIBasicTabsWidget.prototype              = Object.create(CoreUIObjectWidget.prototype);
 CoreUIBasicTabsWidget.prototype.constructor  = CoreUIBasicTabsWidget;
 
-CoreUIBasicTabsWidget.prototype.PreBuild = function(params) {
+CoreUIBasicTabsWidget.prototype.PreBuild = function() {
     var tabHeader = "";
 	var tabContent = "";
 	for (key in this.Tabs) {
@@ -57,7 +57,7 @@ CoreUIBasicTabsWidget.prototype.PreBuild = function(params) {
 	this.HTML = this.HTML.split("[HEADERS]").join(tabHeader);
 }
 
-CoreUIBasicTabsWidget.prototype.PostBuild = function(params) {
+CoreUIBasicTabsWidget.prototype.PostBuild = function() {
 }
 
 CoreUIBasicTabsWidget.prototype.CreateTab = function (name, t_body) {
@@ -92,6 +92,12 @@ CoreUIBasicTabsWidget.prototype.TabSelected = function (name) {
 
 CoreUIBasicTabsWidget.prototype.SelectTab = function (name) {
 	this.TabSelected(name);
+}
+
+CoreUIBasicTabsWidget.prototype.GetTabId = function (name) {
+	var tab = this.Tabs[name];
+
+	return this.WidgetID+"_basic_tab_content_"+tab.id;
 }
 
 CoreUIBasicTabsWidget.prototype.Update = function () {

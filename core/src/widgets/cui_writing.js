@@ -3,8 +3,8 @@ function CoreUIWritingTitle (params) {
 	self = this;
  
     this.ObjectName = "core_ui_title";
-    this.Content    = `<br><span style="font-size: x-large;font-weight: bold;margin-left: 5px;color: darkcyan;">[TITLE]</span><hr>`;
-    this.Title      = params.title;
+    this.Content    = `<br><span style="font-size: x-large;font-weight: bold;margin-left: 5px;color: darkcyan;">[TITLE]</span><div id="[ID]_hr"></div>`;
+    this.Params      = params;
 
 	return this;
 }
@@ -12,8 +12,20 @@ function CoreUIWritingTitle (params) {
 CoreUIWritingTitle.prototype              = Object.create(CoreUIObject.prototype);
 CoreUIWritingTitle.prototype.constructor  = CoreUIWritingTitle;
 
-CoreUIWritingTitle.prototype.PreBuild = function (params) {
-    this.HTML = this.HTML.split("[TITLE]").join(this.Title);
+CoreUIWritingTitle.prototype.PreBuild = function () {
+    this.HTML = this.HTML.split("[TITLE]").join(this.Params.title);
+}
+
+CoreUIWritingTitle.prototype.PostBuild = function () {
+    this.SetUnderLine(this.Params.underline);
+}
+
+CoreUIWritingTitle.prototype.SetUnderLine = function (state) {
+    var html = "";
+    if (state == true) {
+        html = "<hr>";
+    }
+    document.getElementById(this.WidgetID+"_hr").innerHTML = html;
 }
 
 function CoreUIWritingLabel (params) {
@@ -30,7 +42,7 @@ function CoreUIWritingLabel (params) {
 CoreUIWritingLabel.prototype              = Object.create(CoreUIObject.prototype);
 CoreUIWritingLabel.prototype.constructor  = CoreUIWritingLabel;
 
-CoreUIWritingLabel.prototype.PreBuild = function (params) {
+CoreUIWritingLabel.prototype.PreBuild = function () {
     this.HTML = this.HTML.split("[TEXT]").join(this.Params.text);
     this.HTML = this.HTML.split("[FAMILY]").join((this.Params.font === undefined || this.Params.font === null) ? "ariel" : this.Params.font);
     this.HTML = this.HTML.split("[SIZE]").join((this.Params.size === undefined || this.Params.size === null) ? "small" : this.Params.size+"px");

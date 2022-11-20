@@ -22,5 +22,6 @@ ViewSelector.prototype.Switch = function(view_name, callback) {
     this.Views[view_name].Build(null, function(scope) {
         self.CurrentView = view_name;
         callback(scope);
+        scope.SelectedView(scope);
     });
 }

@@ -11,7 +11,7 @@ function CoreUIObjectWidget(scope, params) {
     this.IsModal        = false;
 
     if (scope !== undefined || scope !== null) {
-        if (scope.Object.hasOwnProperty("CoreUIWidgets") == false) {   
+        if (scope.Object.hasOwnProperty("CoreUIWidgets") == false) {
             scope.Object.CoreUIWidgets = {};
         }
         this.MyPath = this.Scope.Path+`.CoreUIWidgets.[ID]`;

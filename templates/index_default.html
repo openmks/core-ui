@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Application</title>
+        <title id="id_template_application_title">Application</title>
         <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
         <link href="{{ url_for('static', filename='js/core/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='js/core/lib/bootstrap/css/docs.css') }}" rel="stylesheet">
@@ -14,7 +14,7 @@
     </head>
     <body>
         <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow" id="id_application_navbar_container">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Application</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" id="id_template_application_name">Application</a>
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <strong><span style="color: white" id="id_application_time">10:00:00</span></strong>
@@ -49,6 +49,10 @@
 
         <script src="{{ url_for('static', filename='js/core/src/widgets/cui_object.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/cui_object_widget.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_modal.js') }}"></script>
+
+        <!--
+        
         <script src="{{ url_for('static', filename='js/core/src/widgets/cui_writing.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/cui_box.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/cui_button.js') }}"></script>
@@ -69,7 +73,7 @@
         
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_drop_down.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_graph.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_modal.js') }}"></script>
+        
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_table.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/progress_bar.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_slider.js') }}"></script>
@@ -82,7 +86,7 @@
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_switch_button.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_switch_widget.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_text_box.js') }}"></script>
-        
+        -->
 
         <script type="text/javascript">
             var myVar       = "{{ data }}";

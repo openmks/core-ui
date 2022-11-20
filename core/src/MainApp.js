@@ -24,6 +24,7 @@ function Application(name) {
     this.SelectedMenu = null;
     this.API.ApplicationModules.Modal = new MksBasicModal("GLOBAL");
     this.API.ApplicationModules.Error = new MksBasicModal("ERROR");
+    this.API.ApplicationModules.Confirm = new MksBasicModal("CONFIRM");
     this.UserModulesLoadedCallback  = null;
     this.WSDisconnectedBlock        = null;
     this.Identity                   = null
@@ -64,6 +65,7 @@ Application.prototype.Connect = function(ip, port, callback) {
         console.log("Connected to local websocket");
 
         self.API.GetModules();
+        self.API.GetWidgets();
         callback(self);
     });
 }
@@ -103,6 +105,9 @@ Application.prototype.HideInfoWindow = function (header, content) {
 Application.prototype.AppendModule = function (name) {
     this.API.AppendModule(name);
 }
+Application.prototype.ImportWidget = function (name) {
+    this.API.ImportWidget(name);
+}
 Application.prototype.GetModalId = function() {
     return "id_basic_modal_GLOBAL_content";
 }
@@ -122,6 +127,22 @@ Application.prototype.ShowModal = function(title, content, footer, size) {
     this.API.ApplicationModules.Modal.Build(size);
     this.API.ApplicationModules.Modal.Show();
 }
+Application.prototype.ShowConfirm = function(data) {
+    var footer = `
+        <button type="button" class="btn btn-success btn-sm" onclick="`+data.onconfirm+`">`+data.confirm_text+`</button>
+        <button type="button" onclick="`+data.oncancel+`" class="btn btn-secondary btn-sm" data-dismiss="modal">`+data.cancel_text+`</button>
+    `;
+    this.API.ApplicationModules.Confirm.Remove();
+    this.API.ApplicationModules.Confirm.SetTitle(data.title);
+    this.API.ApplicationModules.Confirm.SetContent(data.content);
+    this.API.ApplicationModules.Confirm.SetFooter(footer);
+    this.API.ApplicationModules.Confirm.Build(data.size);
+    this.API.ApplicationModules.Confirm.Show();
+}
+Application.prototype.HideConfirm = function() {
+    this.API.ApplicationModules.Confirm.Remove();
+    this.API.ApplicationModules.Confirm.Hide();
+}
 Application.prototype.HideModal = function() {
     this.API.ApplicationModules.Modal.Remove();
     this.API.ApplicationModules.Modal.Hide();
@@ -133,6 +154,18 @@ Application.prototype.HashMD5 = function(value) {
     // JSON.stringify(value)
     return CryptoJS.MD5(value).toString();
 }
+Application.prototype.GetViewInfo = function() {
+    return {
+        screen: window.screen,
+        window: {
+            width: window.innerWidth,
+            height: window.innerHeight
+        }
+    }
+}
+Application.prototype.Resize = function(width, height) {
+    window.resizeTo(width, height);
+}
 Application.prototype.GetAppliactionModules = function() {
     return this.API.GetAppliactionModules();
 }
@@ -143,6 +176,10 @@ Application.prototype.LoadModule = function(name, callback) {
 			callback(self, js);
 		}
     });
+}
+Application.prototype.SetApplicationName = function(name) {
+    document.getElementById("id_template_application_name").innerHTML = name;
+    document.getElementById("id_template_application_title").innerHTML = name;
 }
 
 var MkSApplicationBuilder = (function () {

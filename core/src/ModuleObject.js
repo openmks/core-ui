@@ -45,9 +45,7 @@ ModuleObject.prototype.Build = function(data, callback) {
         if (self.HostingObject !== undefined && self.HostingObject != null) {
             self.HostingObject.innerHTML = self.HTML;
         }
-        // Each UI module have encapsulated conent in component object (DIV)
-        self.ComponentObject = document.getElementById("id_m_component_view_"+self.HostingID);
-
+        self.SetFocuse();
         self.PostBuild();
 
         // Call callback
@@ -68,5 +66,20 @@ ModuleObject.prototype.Show = function() {
     this.ComponentObject.classList.remove("d-none")
 }
 
-ModuleObject.prototype.SelectedView = function() {
+ModuleObject.prototype.SelectedView = function(scope) {
+}
+
+ModuleObject.prototype.SetFocuse = function() {
+    this.ComponentObject = document.getElementById("id_m_component_view_"+this.HostingID);
+    if (this.ComponentObject !== undefined && this.ComponentObject != null) {
+        this.ComponentObject.innerHTML += `<div id="id_m_component_view_`+this.HostingID+`_check_focus"></div>`;
+    }
+}
+
+ModuleObject.prototype.InFocuse = function() {
+    var obj = document.getElementById("id_m_component_view_"+this.HostingID+"_check_focus");
+    if (obj === null) {
+        return false;
+    }
+    return true;
 }

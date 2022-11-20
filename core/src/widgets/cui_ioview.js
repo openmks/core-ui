@@ -4,7 +4,7 @@ function CoreUIIOBoxView (params) {
 
     this.ObjectName = "core_ui_basic_io_box_view";
     this.Content    = `
-        <div class="card mb-4 shadow-sm" style="margin:5px;">
+        <div class="card mb-4 shadow-sm" style="margin:5px;" id="[ID]">
             <div class="card-header" style="text-align: center">
                 <span id="[ID]_name" style="color: #2A7D8D; font-size: small; text-align: center">[NAME]</span>
             </div>
@@ -17,7 +17,7 @@ function CoreUIIOBoxView (params) {
         switch (params.design) {
             case "box_1":
                 this.Content = `
-                    <div class="card mb-4 shadow-sm" style="margin:5px;">
+                    <div class="card mb-4 shadow-sm" style="margin:5px; id="[ID]"">
                         <div class="card-header" style="text-align: center">
                             <span id="[ID]_name" style="color: #2A7D8D; font-size: small; text-align: center">[NAME]</span>
                         </div>
@@ -27,7 +27,7 @@ function CoreUIIOBoxView (params) {
                 break;
             case "box_2":
                 this.Content = `
-                    <ul class="list-group mb-3">
+                    <ul class="list-group mb-3" id="[ID]">
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0" id="[ID]_name">[NAME]</h6>
