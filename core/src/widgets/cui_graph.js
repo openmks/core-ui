@@ -143,3 +143,123 @@ CoreUIGraph.prototype.Update = function (title, data) {
         }
     }
 }
+
+function CoreUIMatlabGraph (params) {
+    CoreUIObject.call(this, params);
+    self = this;
+
+    this.ObjectName = "core_ui_matlab_graph";
+    this.Content    = `
+        <div id="[ID]_container_[NAME]">
+            <div id="[ID]_graph_[NAME]" style="height:[HEIGHT], width:[WIDTH]"></div>
+        </div>
+    `;
+    this.Params = params;
+    this.GraphData = [];
+
+    this.Colors = {
+        red: 'rgb(255, 99, 132)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        green: 'rgb(75, 192, 192)',
+        blue: 'rgb(54, 162, 235)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(201, 203, 207)'
+    };
+
+    this.Layout = {
+        hovermode: "x",
+        height: 500,
+        width: 700,
+        xaxis: {
+            title: "<i></i>",
+            gridcolor: "rgba(102, 102, 102, 0.4)",
+            linecolor: "#000",
+            linewidth: 1
+        }
+    }
+
+    this.GraphMap           = {};
+    this.TimeLane           = {
+        stream: [], 
+        window: []
+    };
+    this.GraphToIndexMap    = {};
+    this.WindowSize         = 128;
+	
+	return this;
+}
+
+CoreUIMatlabGraph.prototype              = Object.create(CoreUIObject.prototype);
+CoreUIMatlabGraph.prototype.constructor  = CoreUIMatlabGraph;
+
+CoreUIMatlabGraph.prototype.PreBuild = function (params) {
+    this.HTML = this.HTML.split("[NAME]").join(this.Params.name);
+    this.HTML = this.HTML.split("[HEIGHT]").join(this.Params.height);
+    this.HTML = this.HTML.split("[WIDTH]").join(this.Params.width);
+    this.Layout.height = this.Params.height;
+    this.Layout.width = this.Params.width;
+}
+
+CoreUIMatlabGraph.prototype.PostBuild = function (params) {
+    this.Instance = Plotly.newPlot(this.WidgetID + "_graph_" + this.Params.name, this.GraphData, this.Layout);
+}
+
+CoreUIMatlabGraph.prototype.AddDataSet = function(data) {
+    if (data.x == undefined || data.y == undefined  || data.name== undefined  || data.type== undefined) {
+        return;
+    }
+
+    this.GraphData.push({
+        name: data.name,
+        y: data.y,
+        x: data.x,
+        type: data.type
+    });
+
+    this.GraphMap[data.name] = {
+        stream: [], 
+        window: []
+    };
+    this.GraphToIndexMap[data.name] = this.GraphData.length - 1;
+}
+
+CoreUIMatlabGraph.prototype.RemoveDataSet = function(name) {
+
+}
+
+CoreUIMatlabGraph.prototype.UpdateDataSet = function (name, data) {
+    if (this.Instance === null) {
+        return;
+    }
+
+    this.GraphMap[name].stream.push(data);
+    if (this.GraphMap[name].stream.length > this.WindowSize) {
+        this.GraphMap[name].window = this.GraphMap[name].stream.slice(0-this.WindowSize);
+    } else {
+        this.GraphMap[name].window = this.GraphMap[name].stream;
+    }
+}
+
+CoreUIMatlabGraph.prototype.UpdateTimeLane = function (value) {
+    if (this.Instance === null) {
+        return;
+    }
+
+    this.TimeLane.stream.push(value);
+    if (this.TimeLane.stream.length > this.WindowSize) {
+        this.TimeLane.window = this.TimeLane.stream.slice(0-this.WindowSize);
+    } else {
+        this.TimeLane.window = this.TimeLane.stream;
+    }
+}
+
+CoreUIMatlabGraph.prototype.ReDraw = function () {
+    for (graphName in this.GraphMap) {
+        var graphIdx = this.GraphToIndexMap[graphName];
+        this.GraphData[graphIdx].y = this.GraphMap[graphName].window;
+        this.GraphData[graphIdx].x = this.TimeLane.window;
+    }
+
+    Plotly.redraw(this.WidgetID + "_graph_" + this.Params.name);
+}

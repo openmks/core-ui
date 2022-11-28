@@ -147,6 +147,12 @@ Application.prototype.HideModal = function() {
     this.API.ApplicationModules.Modal.Remove();
     this.API.ApplicationModules.Modal.Hide();
 }
+Application.prototype.DictHasKey = function(dict, key) {
+    return dict.hasOwnProperty(key);
+}
+Application.prototype.DictLength = function(dict) {
+    return Object.keys(dict).length;
+}
 Application.prototype.Replace = function(origin, tag, replacement) {
     return origin.split(tag).join(replacement)
 }

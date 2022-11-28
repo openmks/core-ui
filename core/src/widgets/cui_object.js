@@ -137,6 +137,12 @@ CoreUIObject.prototype.RegisterClickCallback = function(callback) {
 
 CoreUIObject.prototype.Build = function (id) {
     this.WorkingObject  = document.getElementById(id);
+
+    if (this.WorkingObject === null || this.WorkingObject === undefined) {
+        console.log("UI Object (" + this.ObjectName + ") (" + id + ") object was not found in DOM");
+        return;
+    }
+
     this.WidgetID       = id+"_"+this.ObjectName;
     this.HTML           = `<div id="`+this.WidgetID+`_envelop">`+this.Content+`</div>`;
 

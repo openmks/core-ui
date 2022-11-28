@@ -51,43 +51,6 @@
         <script src="{{ url_for('static', filename='js/core/src/widgets/cui_object_widget.js') }}"></script>
         <script src="{{ url_for('static', filename='js/core/src/widgets/basic_modal.js') }}"></script>
 
-        <!--
-        
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_writing.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_box.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_button.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_textbox.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_progress_bar.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_tabs_widget.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_dropdown.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_ioview.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_slider.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_multi_slider.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_switch.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_graph.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_canvas.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_expanders.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_image.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_table.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_basic_uploader_widget.js') }}"></script>
-        
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_drop_down.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_graph.js') }}"></script>
-        
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_table.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/progress_bar.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_slider.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_matrix.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_uploader.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_tabs_widget.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_slider_widget.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/cui_matrix_widget.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_io_view.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_switch_button.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_switch_widget.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/core/src/widgets/basic_text_box.js') }}"></script>
-        -->
-
         <script type="text/javascript">
             var myVar       = "{{ data }}";
             var decodedJSON = $('<div/>').html(myVar).text();
@@ -101,7 +64,7 @@
 
             var queryString = window.location.search;
             var view = "app";
-            const urlParams = new URLSearchParams(queryString);
+            var urlParams = new URLSearchParams(queryString);
             if (urlParams.has('view')) {
                 view = urlParams.get('view');
             }
@@ -112,6 +75,7 @@
 
             window.MKS = {};
             window.MKS.MicroServices = {};
+            window.MKS.URLParams = urlParams;
 
             var AppLoader = new ApplicationLoader();
             AppLoader.Connect(function() {

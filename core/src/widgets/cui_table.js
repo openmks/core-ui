@@ -197,7 +197,12 @@ CoreUITable.prototype.PostBuild = function () {
         document.getElementById(this.WidgetID+"_basic_table_listing_right").appendChild(this.objRight);
         document.getElementById(this.WidgetID+"_basic_table_listing_first").appendChild(this.objFirst);
         document.getElementById(this.WidgetID+"_basic_table_listing_last").appendChild(this.objLast);
-        document.getElementById(this.WidgetID+"_basic_table_listing_nav").classList.remove("d-none");
+
+        if (this.Data.length > this.Window) {
+            document.getElementById(this.WidgetID+"_basic_table_listing_nav").classList.remove("d-none");
+        } else {
+            document.getElementById(this.WidgetID+"_basic_table_listing_nav").classList.add("d-none");
+        }
     }
 }
 

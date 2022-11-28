@@ -16,7 +16,7 @@ function CoreUIMatrix (params) {
 CoreUIMatrix.prototype              = Object.create(CoreUIObject.prototype);
 CoreUIMatrix.prototype.constructor  = CoreUIMatrix;
 
-CoreUIMatrix.prototype.PreBuild = function (params) {
+CoreUIMatrix.prototype.PreBuild = function () {
     this.HTML = `<table style="width: 100%"><tbody style="width: 100%">`;
     for (var idy = 0; idy < this.Y; idy++) {
         this.HTML += `<tr id="`+this.WidgetID+`_row_`+(idy+1)+`" style="width: 100%">`;
@@ -33,7 +33,7 @@ CoreUIMatrix.prototype.PreBuild = function (params) {
     this.HTML += `</tbody></table>`;
 }
 
-CoreUIMatrix.prototype.PostBuild = function (params) {
+CoreUIMatrix.prototype.PostBuild = function () {
 
 }
 
