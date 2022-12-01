@@ -151,7 +151,14 @@ function CoreUIMatlabGraph (params) {
     this.ObjectName = "core_ui_matlab_graph";
     this.Content    = `
         <div id="[ID]_container_[NAME]">
-            <div id="[ID]_graph_[NAME]" style="height:[HEIGHT], width:[WIDTH]"></div>
+            <table>
+                <tr>
+                    <td style="height: 1px">
+                        <div id="[ID]_graph_[NAME]_titles" style="display: flex; flex-direction: column; align-items: center; justify-content: space-around; height:100%"></div>
+                    </td>
+                    <td><div id="[ID]_graph_[NAME]" style="height:[HEIGHT], width:[WIDTH]"></div></td>
+                </tr>
+            </table>
         </div>
     `;
     this.Params = params;
@@ -171,13 +178,9 @@ function CoreUIMatlabGraph (params) {
         hovermode: "x",
         height: 500,
         width: 700,
-        xaxis: {
-            title: "<i></i>",
-            gridcolor: "rgba(102, 102, 102, 0.4)",
-            linecolor: "#000",
-            linewidth: 1
-        }
-    }
+        showlegend: false
+    };
+    this.GraphScale = 10;
 
     this.GraphMap           = {};
     this.TimeLane           = {
@@ -185,7 +188,7 @@ function CoreUIMatlabGraph (params) {
         window: []
     };
     this.GraphToIndexMap    = {};
-    this.WindowSize         = 128;
+    this.WindowSize         = 512;
 	
 	return this;
 }
@@ -193,7 +196,7 @@ function CoreUIMatlabGraph (params) {
 CoreUIMatlabGraph.prototype              = Object.create(CoreUIObject.prototype);
 CoreUIMatlabGraph.prototype.constructor  = CoreUIMatlabGraph;
 
-CoreUIMatlabGraph.prototype.PreBuild = function (params) {
+CoreUIMatlabGraph.prototype.PreBuild = function () {
     this.HTML = this.HTML.split("[NAME]").join(this.Params.name);
     this.HTML = this.HTML.split("[HEIGHT]").join(this.Params.height);
     this.HTML = this.HTML.split("[WIDTH]").join(this.Params.width);
@@ -201,7 +204,7 @@ CoreUIMatlabGraph.prototype.PreBuild = function (params) {
     this.Layout.width = this.Params.width;
 }
 
-CoreUIMatlabGraph.prototype.PostBuild = function (params) {
+CoreUIMatlabGraph.prototype.PostBuild = function () {
     this.Instance = Plotly.newPlot(this.WidgetID + "_graph_" + this.Params.name, this.GraphData, this.Layout);
 }
 
@@ -209,12 +212,14 @@ CoreUIMatlabGraph.prototype.AddDataSet = function(data) {
     if (data.x == undefined || data.y == undefined  || data.name== undefined  || data.type== undefined) {
         return;
     }
-
+    
     this.GraphData.push({
         name: data.name,
         y: data.y,
         x: data.x,
-        type: data.type
+        type: data.type,
+        xaxis: "x"+(this.GraphData.length+1),
+        yaxis: "y"+(this.GraphData.length+1)
     });
 
     this.GraphMap[data.name] = {
@@ -222,6 +227,43 @@ CoreUIMatlabGraph.prototype.AddDataSet = function(data) {
         window: []
     };
     this.GraphToIndexMap[data.name] = this.GraphData.length - 1;
+    this.Layout["xaxis"+this.GraphData.length.toString()] = {
+        title: "Milliseconds",
+        gridcolor: "rgba(102, 102, 102, 0.4)",
+        linecolor: "#000",
+        linewidth: 1,
+        showticklabels: false,
+        anchor: "x"+(this.GraphData.length),
+        domain: [0, 1]
+    }
+    this.Layout["yaxis"+this.GraphData.length.toString()] = {
+        domain: [0,1], 
+        anchor: "y"+(this.GraphData.length)
+    }
+    this.Layout.height = ((this.GraphData.length * 400) * (1-this.GraphData.length/this.GraphScale)).toString();
+
+    var html = "";
+    var start = 0.0;
+    var divider = 1.0 / this.GraphData.length;
+    // Update y domain if more then 1
+    if (this.GraphData.length > 1) {
+        for (idx = 1; idx <= this.GraphData.length; idx++) {
+            if (idx == 1) {
+                this.Layout["yaxis"].domain = [start, start+divider];
+            } else {
+                this.Layout["yaxis"+idx.toString()].domain = [start, start+divider];
+            }
+            start += divider;
+            html += "<div>GR#"+idx+"</div>";
+        }
+    } else {
+        html = "<div>GR#1</div>";
+    }
+
+    document.getElementById(this.WidgetID + "_graph_" + this.Params.name + "_titles").innerHTML = html;
+    
+    // Plotly.relayout(this.WidgetID + "_graph_" + this.Params.name, this.Layout);
+    this.Instance = Plotly.newPlot(this.WidgetID + "_graph_" + this.Params.name, this.GraphData, this.Layout);
 }
 
 CoreUIMatlabGraph.prototype.RemoveDataSet = function(name) {
@@ -262,4 +304,13 @@ CoreUIMatlabGraph.prototype.ReDraw = function () {
     }
 
     Plotly.redraw(this.WidgetID + "_graph_" + this.Params.name);
+}
+
+CoreUIMatlabGraph.prototype.ExtendDraw = function (x, y, traces) {
+    dataSets = {
+        x: x,
+        y: y
+    };
+
+    Plotly.extendTraces(this.WidgetID + "_graph_" + this.Params.name, dataSets, traces);
 }

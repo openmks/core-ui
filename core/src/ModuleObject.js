@@ -3,6 +3,7 @@ function ModuleObject(app, id) {
 
     // Modules basic
     this.ModuleName                 = "";
+    this.Root                       = app;
     this.Application                = app.Application;
     this.ApplicationsPath           = app.Path + ".API.ApplicationModules.";
     this.DOMName                    = "";

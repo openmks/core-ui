@@ -4,7 +4,7 @@ function CoreUITable (params) {
 
     this.ObjectName = "core_ui_basic_table";
     this.Content    = `
-        <div id="[ID]_basic_table_content">
+        <div id="[ID]">
             <nav aria-label="Page navigation example" id="[ID]_basic_table_listing_nav">
                 <ul class="pagination justify-content-center" id="[ID]_basic_table_listing_index_nav">
                     <li class="page-item disabled"><small class="page-link" href="#" id="[ID]_basic_table_listing_index_left"></small></li>
@@ -36,7 +36,7 @@ function CoreUITable (params) {
         "type_basic": {
             css: ``,
             content: `
-            <div id="[ID]_basic_table_content">
+            <div id="[ID]">
                 <nav aria-label="Page navigation example" id="[ID]_basic_table_listing_nav">
                     <ul class="pagination justify-content-center" id="[ID]_basic_table_listing_index_nav">
                         <li class="page-item disabled"><small class="page-link" href="#" id="[ID]_basic_table_listing_index_left"></small></li>
@@ -67,7 +67,7 @@ function CoreUITable (params) {
         "type_owl": {
             css: `a{-webkit-transition:.3s all ease;-o-transition:.3s all ease;transition:.3s all ease}a,a:hover{text-decoration:none!important}.content{padding:7rem 0}.custom-table{min-width:900px}.custom-table thead th,.custom-table thead tr{border-top:none;border-bottom:none!important}.custom-table tbody td,.custom-table tbody th{color:#777;font-weight:400;padding-bottom:20px;padding-top:20px;font-weight:300}.custom-table tbody td small,.custom-table tbody th small{color:#b3b3b3;font-weight:300}.custom-table tbody .persons{padding:0;margin:0}.custom-table tbody .persons li{padding:0;margin:0 0 0 -15px;list-style:none;display:inline-block}.custom-table tbody .persons li a{display:inline-block;width:36px}.custom-table tbody .persons li a img{border-radius:50%;max-width:100%}.custom-table tbody tr td,.custom-table tbody tr th{position:relative;-webkit-transition:.3s all ease;-o-transition:.3s all ease;transition:.3s all ease}.custom-table tbody tr td:after,.custom-table tbody tr td:before,.custom-table tbody tr th:after,.custom-table tbody tr th:before{-webkit-transition:.3s all ease;-o-transition:.3s all ease;transition:.3s all ease;content:"";left:0;right:0;position:absolute;height:1px;background:#bfbfbf;width:100%;opacity:0;visibility:hidden}.custom-table tbody tr td:before,.custom-table tbody tr th:before{top:-1px}.custom-table tbody tr td:after,.custom-table tbody tr th:after{bottom:-1px}.custom-table tbody tr:hover td,.custom-table tbody tr:hover th{background:rgba(0,0,0,.03)}.custom-table tbody tr:hover td:after,.custom-table tbody tr:hover td:before,.custom-table tbody tr:hover th:after,.custom-table tbody tr:hover th:before{opacity:1;visibility:visible}.custom-table tbody tr.active td,.custom-table tbody tr.active th{background:rgba(0,0,0,.03)}.custom-table tbody tr.active td:after,.custom-table tbody tr.active td:before,.custom-table tbody tr.active th:after,.custom-table tbody tr.active th:before{opacity:1;visibility:visible}.control{display:block;position:relative;margin-bottom:25px;cursor:pointer;font-size:18px}.control input{position:absolute;z-index:-1;opacity:0}.control__indicator{position:absolute;top:2px;left:0;height:20px;width:20px;border-radius:4px;border:2px solid #ccc;background:0 0}.control--radio .control__indicator{border-radius:50%}.control input:focus~.control__indicator,.control:hover input~.control__indicator{border:2px solid #007bff}.control input:checked~.control__indicator{border:2px solid #007bff;background:#007bff}.control input:disabled~.control__indicator{background:#e6e6e6;opacity:.6;pointer-events:none;border:2px solid #ccc}.control__indicator:after{font-family:icomoon;content:'\e5ca';position:absolute;display:none}.control input:checked~.control__indicator:after{display:block;color:#fff}.control--checkbox .control__indicator:after{top:50%;left:50%;-webkit-transform:translate(-50%,-52%);-ms-transform:translate(-50%,-52%);transform:translate(-50%,-52%)}.control--checkbox input:disabled~.control__indicator:after{border-color:#7b7b7b}.control--checkbox input:disabled:checked~.control__indicator{background-color:#007bff;opacity:.2;border:2px solid #007bff}`,
             content: `
-            <div id="[ID]_basic_table_content">
+            <div id="[ID]">
                 <nav aria-label="Page navigation example" id="[ID]_basic_table_listing_nav">
                     <ul class="pagination justify-content-center" id="[ID]_basic_table_listing_index_nav">
                         <li class="page-item disabled"><small class="page-link" href="#" id="[ID]_basic_table_listing_index_left"></small></li>

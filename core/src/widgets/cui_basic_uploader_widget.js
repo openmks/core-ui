@@ -156,8 +156,12 @@ CoreUIBasicUploaderWidget.prototype.SetProgressText = function (msg) {
 */
 CoreUIBasicUploaderWidget.prototype.ReadImage = function (file) {
 	var fileTypeCorrect = false;
-	console.log(file.type);
 
+	if (file === undefined || file === null) {
+		return;
+	}
+
+	console.log(file.type);
 	if (this.FileType === undefined || this.FileType === null) {
 		fileTypeCorrect = true;
 	} else if (this.FileType !== undefined && this.FileType !== null && this.FileType.length == 0) { 
