@@ -11,47 +11,16 @@ function CoreUIWritingTitle (params) {
                     <div style="display: inline-block" id="[ID]_object_list_1"></div>
                     <div style="display: inline-block" id="[ID]_object_list_2"></div>
                     <div style="display: inline-block" id="[ID]_object_list_3"></div>
+                    <div style="display: inline-block" id="[ID]_object_list_4"></div>
+                    <div style="display: inline-block" id="[ID]_object_list_5"></div>
                 </div>
             </div>
             <div id="[ID]_hr">
         </div>
     `;
-    /*
-    this.Content    = `
-        <br>
-        <div style="display: flex; flex-direction: row; justify-content: space-between;">
-            <div><span style="font-size: x-large;font-weight: bold;margin-left: 5px;color: darkcyan;">[TITLE]</span></div>
-                <div>
-                    <table>
-                        <tr>
-                            <td style="vertical-align: middle;" id="[ID]_object_list_1"></td>
-                            <td style="vertical-align: middle;" id="[ID]_object_list_2"></td>
-                            <td style="vertical-align: middle;" id="[ID]_object_list_3"></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div id="[ID]_hr">
-        </div>
-    `;
-    this.Content = `
-        <br>
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-            <span style="font-size: x-large;font-weight: bold;margin-left: 5px;color: darkcyan;">[TITLE]</span>
-            <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group mr-2">
-                    <button class="btn btn-sm btn-outline-secondary">Share</button>
-                    <button class="btn btn-sm btn-outline-secondary">Export</button>
-                </div>
-                <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                    <span data-feather="calendar"></span>
-                    This week
-                </button>
-            </div>
-        </div>
-        <div id="[ID]_hr"></div>
-    `;*/
+
     this.Params     = params;
+    this.MaxObjects = 5;
 
 	return this;
 }
@@ -76,7 +45,7 @@ CoreUIWritingTitle.prototype.SetUnderLine = function (state) {
 }
 
 CoreUIWritingTitle.prototype.AppendObject = function (idx, obj) {
-    if (obj === undefined || obj === null) {
+    if (obj === undefined || obj === null || idx > this.MaxObjects) {
         return false;
     }
     obj.Build(this.WidgetID+"_object_list_"+idx);

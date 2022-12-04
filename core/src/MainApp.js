@@ -153,6 +153,18 @@ Application.prototype.DictHasKey = function(dict, key) {
 Application.prototype.DictLength = function(dict) {
     return Object.keys(dict).length;
 }
+Application.prototype.DictToKeyArray = function(dict) {
+    return Object.keys(dict);
+}
+Application.prototype.DictToArray = function(dict) {
+    return Object.values(dict);
+}
+Application.prototype.RemoveFromArrayByValue = function(array, item) {
+    var index = array.indexOf(item);
+    if (index !== -1) {
+        array.splice(index, 1);
+    }
+}
 Application.prototype.Replace = function(origin, tag, replacement) {
     return origin.split(tag).join(replacement)
 }
