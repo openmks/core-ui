@@ -198,6 +198,8 @@ function CoreUIMatlabGraph (params) {
         items_count: 0,
         map: []
     };
+    this.HoverEventHandler      = null;
+    this.UnHoverEventHandler    = null;
 	
 	return this;
 }
@@ -346,6 +348,34 @@ CoreUIMatlabGraph.prototype.Group = function() {
 
     document.getElementById(this.WidgetID + "_graph_" + this.Params.name + "_titles").innerHTML = html;
     this.Instance = Plotly.newPlot(this.WidgetID + "_graph_" + this.Params.name, this.GraphData, this.Layout);
+
+    document.getElementById(this.WidgetID + "_graph_" + this.Params.name).on('plotly_hover', this.HoverEvent.bind(this));
+    document.getElementById(this.WidgetID + "_graph_" + this.Params.name).on('plotly_unhover', this.UnHoverEvent.bind(this));
+}
+
+CoreUIMatlabGraph.prototype.HoverEvent = function(data) {
+    var self = this;
+    data.points.map(function(d) {
+        if (self.HoverEventHandler != null) {
+            self.HoverEventHandler({x: d.x, y: d.y, idx: data.points[0].pointNumber});
+        }
+    });
+}
+
+CoreUIMatlabGraph.prototype.UnHoverEvent = function() {
+    if (this.UnHoverEventHandler != null) {
+        this.UnHoverEventHandler();
+    }
+}
+
+CoreUIMatlabGraph.prototype.ShowHover = function(data) {
+    Plotly.Fx.hover(this.WidgetID + "_graph_" + this.Params.name,[
+        {curveNumber:0, pointNumber:data.idx}
+    ]);
+}
+
+CoreUIMatlabGraph.prototype.HideHover = function(data) {
+    Plotly.Fx.hover(this.WidgetID + "_graph_" + this.Params.name,[]);
 }
 
 CoreUIMatlabGraph.prototype.AddDataSet = function(data, separate) {
