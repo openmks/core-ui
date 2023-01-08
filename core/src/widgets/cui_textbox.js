@@ -3,7 +3,7 @@ function CoreUITextBox (params) {
 	self = this;
  
     this.ObjectName = "core_ui_textbox";
-    this.Content    = `<input type="text" id="[ID]_content" class="form-control [SIZE]" onkeyup="return [ONKEYUP_CALLBACK](event);">`;
+    this.Content    = `<input type="text" id="[ID]_content" class="form-control [SIZE]" onkeyup="[ONKEYUP_CALLBACK]">`;
     this.Size       = params.size;
     this.OnKeyUp    = params.onkeyup;
 
@@ -24,7 +24,11 @@ CoreUITextBox.prototype.PreBuild = function (params) {
             break;
     }
     this.HTML = this.HTML.split("[SIZE]").join(size);
-    this.HTML = this.HTML.split("[ONKEYUP_CALLBACK]").join(this.OnKeyUp);
+    if (this.OnKeyUp === null) {
+        this.HTML = this.HTML.split("[ONKEYUP_CALLBACK]").join("");
+    } else {
+        this.HTML = this.HTML.split("[ONKEYUP_CALLBACK]").join("return " +this.OnKeyUp + "(event);");
+    }
 }
 
 CoreUITextBox.prototype.PostBuild = function (params) {
