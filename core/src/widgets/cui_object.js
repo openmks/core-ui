@@ -80,6 +80,20 @@ CoreUIObject.prototype.SetHeight = function(height) {
     }
 }
 
+/*
+    length          Raises or lower an element by the specified length. Negative values are allowed
+    %	            Raises or lower an element in a percent of the "line-height" property. Negative values are allowed
+    baseline	    Align the baseline of the element with the baseline of the parent element. This is default
+    sub	            Aligns the element as it was subscript
+    super	        Aligns the element as it was superscript
+    top	            The top of the element is aligned with the top of the tallest element on the line
+    text-top	    The top of the element is aligned with the top of the parent element's font
+    middle	        The element is placed in the middle of the parent element
+    bottom	        The bottom of the element is aligned with the lowest element on the line
+    text-bottom	    The bottom of the element is aligned with the bottom of the parent element's font
+    initial	        Sets this property to its default value. Read about initial
+    inherit	        Inherits this property from its parent element. Read about inherit
+*/
 CoreUIObject.prototype.VerticalAlign = function(alligiment) {
     this.WorkingObject.style.verticalAlign = alligiment;
 }
