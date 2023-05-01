@@ -23,6 +23,7 @@ CoreUIDropDown.prototype.PreBuild = function () {
 }
 
 CoreUIDropDown.prototype.UpdateSelected = function (name) {
+    console.log(name, this.WidgetID+"_item_"+name);
     var obj = document.getElementById(this.WidgetID+"_item_"+name);
     obj.selected = true;
 }
@@ -31,6 +32,7 @@ CoreUIDropDown.prototype.AppendItem = function (item) {
     var obj = document.getElementById(this.WidgetID + "_items");
     var html = this.RowView;
     
+    html = html.split("[ID]").join(this.WidgetID);
     html = html.split("[NAME]").join(item.name);
     html = html.split("[VALUE]").join(item.value);
     obj.innerHTML += html;
@@ -42,4 +44,9 @@ CoreUIDropDown.prototype.GetSelected = function() {
         value: select.value,
         name: select.options[select.selectedIndex].text
     }
+}
+
+CoreUIDropDown.prototype.RemoveAllItems = function() {
+    var obj = document.getElementById(this.WidgetID + "_items");
+    obj.innerHTML = "";
 }

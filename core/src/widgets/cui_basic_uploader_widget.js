@@ -25,6 +25,7 @@ function CoreUIBasicUploaderWidget (scope, params) {
             </div>
         </div>
     `;
+
     this.Params             = params;
 	this.FilePath 			= "";
     this.FileName 			= "";
@@ -33,6 +34,7 @@ function CoreUIBasicUploaderWidget (scope, params) {
 	this.OnUploadCompete 	= null;
 	this.Modal 				= null;
 	this.FileType			= [];
+	this.Error 				= false; 
 
     this.Reader.onload = function(e) {
 		self = CoreUIBasicUploaderWidgetBuilder.GetInstance();
@@ -133,7 +135,14 @@ CoreUIBasicUploaderWidget.prototype.UpdateProgress = function (data, uploader) {
 			document.getElementById(uploader.WidgetID+"_id_uploader_progress_item").innerHTML = data.message;
 			break;
 		case "error":
-			document.getElementById(uploader.WidgetID+"_id_uploader_progress_item").innerHTML = "Error";
+			document.getElementById(uploader.WidgetID+"_id_uploader_progress_item").innerHTML = data.message;
+			uploader.Error = true;
+
+			if (data.precentage == "100%") {
+				if (uploader.OnUploadCompete !== null) {
+					uploader.OnUploadCompete(data.file, uploader.Scope.Object);
+				}
+			}
 			break;
 		case "done":
 			document.getElementById(uploader.WidgetID+"_id_uploader_progress_item").innerHTML = data.message;

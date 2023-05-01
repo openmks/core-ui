@@ -70,13 +70,13 @@ CoreUIObject.prototype.SetSize = function(width, height) {
 
 CoreUIObject.prototype.SetWidth = function(width) {
     if (width !== undefined && width !== null) {
-        document.getElementById(this.WidgetID).style.width = width+"px";
+        document.getElementById(this.WidgetID+`_envelop`).style.width = width+"px";
     }
 }
 
 CoreUIObject.prototype.SetHeight = function(height) {
     if (height !== undefined && height !== null) {
-        document.getElementById(this.WidgetID).style.height = height+"px";
+        document.getElementById(this.WidgetID+`_envelop`).style.height = height+"px";
     }
 }
 
@@ -137,6 +137,14 @@ CoreUIObject.prototype.SetBackgroundColor = function(color) {
     document.getElementById(this.WidgetID).style.backgroundColor = color;
 }
 
+CoreUIObject.prototype.SetBoxShadowColor = function (value) {
+    document.getElementById(this.WidgetID).style.boxShadow = value;
+}
+
+CoreUIObject.prototype.SetCursor = function (value) {
+    document.getElementById(this.WidgetID).style.cursor = value;
+}
+
 CoreUIObject.prototype.RegisterMouseEnterCallback = function(callback) {
     document.getElementById(this.WidgetID).addEventListener("mouseenter", callback, useCapture=true);
 }
@@ -165,5 +173,24 @@ CoreUIObject.prototype.Build = function (id) {
     this.PreBuild();
     // Set HTML
     this.WorkingObject.innerHTML = this.HTML;
+    this.PostBuild();
+}
+
+CoreUIObject.prototype.Append = function (id) {
+    this.WorkingObject  = document.getElementById(id);
+
+    if (this.WorkingObject === null || this.WorkingObject === undefined) {
+        console.log("UI Object (" + this.ObjectName + ") (" + id + ") object was not found in DOM");
+        return;
+    }
+
+    this.WidgetID       = id+"_"+this.ObjectName;
+    this.HTML           = `<div id="`+this.WidgetID+`_envelop">`+this.Content+`</div>`;
+
+    this.HTML = this.HTML.split("[ID]").join(this.WidgetID);
+
+    this.PreBuild();
+    // Set HTML
+    this.WorkingObject.innerHTML += this.HTML;
     this.PostBuild();
 }

@@ -56,7 +56,7 @@ function CoreUIWritingLabel (params) {
 	self = this;
  
     this.ObjectName = "core_ui_label";
-    this.Content    = `<span id="[ID]" style="font-family:[FAMILY]; font-size: [SIZE];">[TEXT]</span>`;
+    this.Content    = `<span id="[ID]" style="font-family:[FAMILY]; font-size: [SIZE];font-weight: [WEIGHT]">[TEXT]</span>`;
     this.Params      = params;
 
 	return this;
@@ -69,6 +69,7 @@ CoreUIWritingLabel.prototype.PreBuild = function () {
     this.HTML = this.HTML.split("[TEXT]").join(this.Params.text);
     this.HTML = this.HTML.split("[FAMILY]").join((this.Params.font === undefined || this.Params.font === null) ? "ariel" : this.Params.font);
     this.HTML = this.HTML.split("[SIZE]").join((this.Params.size === undefined || this.Params.size === null) ? "small" : this.Params.size+"px");
+    this.HTML = this.HTML.split("[WEIGHT]").join((this.Params.size === undefined || this.Params.size === null) ? "normal" : this.Params.weight);
 }
 
 CoreUIWritingLabel.prototype.SetFont = function (text) {

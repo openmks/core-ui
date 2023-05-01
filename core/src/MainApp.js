@@ -28,6 +28,7 @@ function Application(name) {
     this.UserModulesLoadedCallback  = null;
     this.WSDisconnectedBlock        = null;
     this.Identity                   = null
+    this.WebSocketUrl               = null;
 
     // this.API.AppendModule("pidaptor");
     // this.API.AppendModule("piterm");
@@ -61,9 +62,10 @@ Application.prototype.Connect = function(ip, port, callback) {
     // Python will emit messages
     self.API.OnNodeChangeCallback = self.OnChangeEvent.bind(self);
     self.API.OnWSCloseCallback = self.OnCloseEvent.bind(self);
-    this.API.ConnectLocalWS(ip, port, function() {
-        console.log("Connected to local websocket");
+    this.API.ConnectLocalWS(ip, port, function(url) {
+        console.log("Connected to local websocket", url);
 
+        self.WebSocketUrl = url;
         self.API.GetModules();
         self.API.GetWidgets();
         callback(self);
@@ -84,9 +86,16 @@ Application.prototype.RegisterOnCloseEvent = function(callback, scope) {
         "scope": scope
     }
 }
-Application.prototype.OnCloseEvent = function() {
-    if (this.WSDisconnectedBlock != null) {
-        this.WSDisconnectedBlock.callback(this.WSDisconnectedBlock.scope, this.Name, this.Identity);
+Application.prototype.OnCloseEvent = function(url) {
+    console.log("Disconnected from local websocket", url);
+
+    if ("Main" == this.Name) {
+        document.getElementById("id_application_session_disconnected").innerHTML = "FOR UNKNOWN ERROR APPLICATION UI SESSION WAS TERMINATED. PLEASE RELOAD OR RE-RUN APLICATION.";
+        document.getElementById("id_application_container_view_module").innerHTML = "";
+        if (this.WSDisconnectedBlock != null) {
+            console.log(this.WSDisconnectedBlock)
+            this.WSDisconnectedBlock.callback(this.WSDisconnectedBlock.scope, this.Name, this.Identity);
+        }
     }
 }
 Application.prototype.ShowInfoWindow = function (header, content, callback) {
@@ -101,7 +110,9 @@ Application.prototype.ShowInfoWindow = function (header, content, callback) {
 Application.prototype.HideInfoWindow = function (header, content) {
     this.API.ApplicationModules.Error.Hide();
 }
-
+Application.prototype.HideAllModals = function() {
+    $('.modal').modal('hide');
+}
 Application.prototype.AppendModule = function (name) {
     this.API.AppendModule(name);
 }

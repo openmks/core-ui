@@ -4,7 +4,7 @@ function CoreUIImage (params) {
 
     this.ObjectName = "core_ui_image";
     this.Content = `
-        <img src="[SRC]" id="[ID]" style="position: absolute; width: [WIDTH]px; height: [HEIGHT]px;" />
+        <img src="[SRC]" id="[ID]" style="width: [WIDTH]px; height: [HEIGHT]px;" />
     `;
     this.Params = params;
 
@@ -30,7 +30,7 @@ function CoreUIIcon (params) {
 
     this.ObjectName = "core_ui_icon";
     this.Content = `
-        <span class="icon_view_hover" id="[ID]" style="position: absolute; width: [WIDTH]px; height: [HEIGHT]px;" data-feather="[ICON]" onclick="[ONCLICK]();"></span>
+        <span class="icon_view_hover" id="[ID]" style="width: [WIDTH]px; height: [HEIGHT]px;" data-feather="[ICON]" onclick="[ONCLICK]();"></span>
     `;
     this.Params = params;
 

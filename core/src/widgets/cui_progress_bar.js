@@ -20,7 +20,7 @@ function CoreUIProgressBar (params) {
 CoreUIProgressBar.prototype              = Object.create(CoreUIObject.prototype);
 CoreUIProgressBar.prototype.constructor  = CoreUIProgressBar;
 
-CoreUIProgressBar.prototype.PostBuild = function(params) {
+CoreUIProgressBar.prototype.PostBuild = function() {
     this.SetValue(0);
     this.SetMessage("Idle");
 }

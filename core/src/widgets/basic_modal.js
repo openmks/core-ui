@@ -96,3 +96,6 @@ MksBasicModal.prototype.Hide = function () {
 	$('#id_basic_modal_'+this.Name).modal('hide');
 }
 
+MksBasicModal.prototype.GetModulId = function () {
+	return 'id_basic_modal_'+this.Name+'_content';
+}

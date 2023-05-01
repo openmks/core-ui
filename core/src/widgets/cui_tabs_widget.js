@@ -25,6 +25,7 @@ function CoreUIBasicTabsWidget (scope, params) {
 	this.Tabs 		        = {};
 	this.TabCounter         = 0;
 	this.SelectedTabName    = "";
+	this.TabChangedEventHandler	= null;
 	
 	return this;
 }
@@ -88,6 +89,9 @@ CoreUIBasicTabsWidget.prototype.TabSelected = function (name) {
 	selectedTabContent.classList.remove("d-none");
 
 	this.SelectedTabName = name;
+	if (this.TabChangedEventHandler != null) {
+		this.TabChangedEventHandler(this.SelectedTabName);
+	}
 }
 
 CoreUIBasicTabsWidget.prototype.SelectTab = function (name) {
@@ -101,4 +105,5 @@ CoreUIBasicTabsWidget.prototype.GetTabId = function (name) {
 }
 
 CoreUIBasicTabsWidget.prototype.Update = function () {
+	
 }

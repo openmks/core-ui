@@ -31,7 +31,7 @@ function CoreUIIOBoxView (params) {
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0" id="[ID]_name">[NAME]</h6>
-                                <small class="text-muted">[ADDITIONAL]</small>
+                                <small id="[ID]_additional" class="text-muted">[ADDITIONAL]</small>
                             </div>
                             <span class="text-muted" id="[ID]_value">[VALUE] [UNIT]</span>
                         </li>
@@ -67,3 +67,6 @@ CoreUIIOBoxView.prototype.SetValue = function (value) {
     document.getElementById(this.WidgetID + "_value").innerHTML = value + " " + this.Params.unit;
 }
 
+CoreUIIOBoxView.prototype.SetAdditional = function (value) {
+    document.getElementById(this.WidgetID + "_additional").innerHTML = value;
+}

@@ -172,6 +172,13 @@ CoreUIBasicTable.prototype.Build = function (id) {
         }
         this.Body += "</tr>";
     }
+
+    if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
+        this.UIChangeEvent({
+            "start": 0,
+            "end": length
+        });
+    }
     
     html = html.split("[BODY]").join(this.Body);
     // Set HTML
@@ -370,7 +377,10 @@ CoreUIBasicTable.prototype.LeftClick = function () {
     document.getElementById(this.WidgetID+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
-        this.UIChangeEvent();
+        this.UIChangeEvent({
+            "start": start_length,
+            "end": end_length
+        });
     }
 }
 
@@ -421,7 +431,10 @@ CoreUIBasicTable.prototype.RighClick = function () {
     document.getElementById(this.WidgetID+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
-        this.UIChangeEvent();
+        this.UIChangeEvent({
+            "start": start_length,
+            "end": end_length
+        });
     }
 }
 
@@ -453,7 +466,7 @@ CoreUIBasicTable.prototype.FirstClick = function () {
         for (ydx = 0; ydx < this.Data[idx].length; ydx++) {
             this.Body += "<td>" + this.Data[idx][ydx] + "</td>";
         }
-        this.Body += "</tr>";
+        this.Body += "</tr>";;
     }
 
     document.getElementById(this.WidgetID+"_basic_table_body").innerHTML = this.Body;
@@ -461,7 +474,10 @@ CoreUIBasicTable.prototype.FirstClick = function () {
     document.getElementById(this.WidgetID+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
-        this.UIChangeEvent();
+        this.UIChangeEvent({
+            "start": start_length,
+            "end": end_length
+        });
     }
 }
 
@@ -506,6 +522,9 @@ CoreUIBasicTable.prototype.LastClick = function () {
     document.getElementById(this.WidgetID+"_basic_table_listing_index_right").innerHTML = this.CountRight + " (" + this.Data.length + ")";
 
     if (this.UIChangeEvent !== undefined && this.UIChangeEvent !== null) {
-        this.UIChangeEvent();
+        this.UIChangeEvent({
+            "start": start_length,
+            "end": end_length
+        });
     }
 }

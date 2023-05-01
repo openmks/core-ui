@@ -43,6 +43,7 @@ ModuleObject.prototype.Build = function(data, callback) {
         self.HTML = self.HTML.split("[MODULE]").join(self.DOMName);
         // Apply HTML to DOM
         self.HostingObject = document.getElementById(self.HostingID);
+        console.log("self.HostingID", self.HostingID);
         if (self.HostingObject !== undefined && self.HostingObject != null) {
             self.HostingObject.innerHTML = self.HTML;
         }

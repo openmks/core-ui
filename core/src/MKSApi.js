@@ -44,6 +44,15 @@ function MkSAPI () {
 	return this;
 }
 
+MkSAPI.prototype.ConvertHEXtoStringNoZeroCheck = function(hexx) {
+	var hex = hexx.toString(); //force conversion
+	var str = '';
+	for (var i = 0; (i < hex.length); i += 2) {
+		str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+	}
+	return str;
+}
+
 MkSAPI.prototype.ConvertHEXtoString = function(hexx) {
 	var hex = hexx.toString();//force conversion
 	var str = '';
@@ -84,8 +93,8 @@ MkSAPI.prototype.ConnectLocalWS = function (ip, port, callback) {
 
 	this.WS = new WebSocket(url);
 	this.WS.onopen = function () {
-		console.log("LOCAL WEBSOCKET > CREATED", url);
-		callback();
+		console.log("LOCAL WEBSOCKET > CREATED", self.WS.url);
+		callback(self.WS.url);
 	};
 	this.WS.onmessage = function (event) {
 		var jsonData = JSON.parse(event.data);
@@ -117,7 +126,7 @@ MkSAPI.prototype.ConnectLocalWS = function (ip, port, callback) {
 	this.WS.onclose = function () {
 		console.log("[LOCAL WEBSOCKET] Connection closed...");
 		if (null != self.OnWSCloseCallback) {
-			self.OnWSCloseCallback();
+			self.OnWSCloseCallback(self.WS.url);
 		}
 	};
 }

@@ -12,7 +12,7 @@ function CoreUISlider (params) {
 CoreUISlider.prototype              = Object.create(CoreUIObject.prototype);
 CoreUISlider.prototype.constructor  = CoreUISlider;
 
-CoreUISlider.prototype.PreBuild = function (params) {
+CoreUISlider.prototype.PreBuild = function () {
     // Update content with user info
     this.HTML = this.HTML.split("[MIN]").join(this.Info.min);
     this.HTML = this.HTML.split("[MAX]").join(this.Info.max);
@@ -27,6 +27,6 @@ CoreUISlider.prototype.PreBuild = function (params) {
 
 CoreUISlider.prototype.SetValue = function (value) {
     document.getElementById(this.WidgetID).value = value;
-    document.getElementById(this.WidgetID).onmouseup(value);
+    // document.getElementById(this.WidgetID).onmouseup(value);
 }
 

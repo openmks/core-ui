@@ -5,7 +5,7 @@ function CoreUIGraph (params) {
     this.ObjectName = "core_ui_basic_graph";
     this.Content    = `
     <div id="[ID]_container_[NAME]">
-        <canvas id="[ID]_graph_[NAME]" style="height:400px"></canvas>
+        <canvas id="[ID]_graph_[NAME]"></canvas>
     </div>
     `;
     this.Params = params;
@@ -17,25 +17,26 @@ function CoreUIGraph (params) {
         green: 'rgb(75, 192, 192)',
         blue: 'rgb(54, 162, 235)',
         purple: 'rgb(153, 102, 255)',
-        grey: 'rgb(201, 203, 207)'
+        grey: 'rgb(201, 203, 207)',
+        black: 'black'
     };
 
     this.Config = {
-        type: 'line',
+        type: this.Params.type,
         data: {
             labels: [],
             datasets: []
         },
         options: {
-            responsive: false,
+            responsive: true,
             title: {
                 display: true,
-                text: ''
+                text: this.Params.title
             },
             tooltips: {
-                enabled: true,
+                enabled: false,
                 mode: 'index',
-                intersect: false,
+                intersect: false
             },
             hover: {
                 mode: 'nearest',
@@ -54,12 +55,11 @@ function CoreUIGraph (params) {
                     scaleLabel: {
                         display: true,
                         labelString: ''
-                    },
-                    ticks: {
-                        max: 1024
                     }
                 }]
             },
+            plugins: {
+            }
         }
     };
 	
@@ -76,17 +76,13 @@ CoreUIGraph.prototype.PreBuild = function (params) {
 CoreUIGraph.prototype.PostBuild = function (params) {
     var Ctx         = document.getElementById(this.WidgetID + "_graph_" + this.Params.name).getContext('2d');
     this.Instance   = new Chart(Ctx, this.Config);
+	//this.Instance.height = 400;
 }
 
 CoreUIGraph.prototype.Configure = function (conf) {
-    this.Config.type                                            = conf.type;
-    this.Config.options.title.text                              = conf.title;
     this.Config.options.scales.xAxes[0].scaleLabel.labelString  = conf.x.title;
     this.Config.options.scales.yAxes[0].scaleLabel.labelString  = conf.y.title;
-    this.Config.options.scales.yAxes[0].ticks.max               = conf.y.max;
-    console.log(conf)
-
-    this.CleanConfigure();
+    // this.Config.options.scales.yAxes[0].ticks.max               = conf.y.max;
 }
 
 CoreUIGraph.prototype.CleanConfigure = function () {
@@ -95,26 +91,18 @@ CoreUIGraph.prototype.CleanConfigure = function () {
 }
 
 CoreUIGraph.prototype.AddDataSet = function(data) {
-    if (data.x == undefined || data.y == undefined) {
-        return;
-    }
-
-    if (data.x.length == 0 || data.y.length == 0) {
-        return;
-    }
 
     var dataSet = {
         label: data.title,
         fill: false,
         backgroundColor: data.bk_color,
         borderColor: data.color,
-        data: data.y,
         pointRadius: 0
     }
     if (data.dashed) {
         dataSet.borderDash = [5, 5];
     }
-    this.Config.data.labels = data.x;
+
     this.Config.data.datasets.push(dataSet);
 }
 
@@ -131,17 +119,47 @@ CoreUIGraph.prototype.Update = function (title, data) {
         return;
     }
 
-    var objContainer = document.getElementById(this.WidgetID + "_container_"+this.Params.name);
-    var objGraph     = document.getElementById(this.WidgetID + "_graph_" + this.Params.name);
+    for (key in this.Instance.data.datasets) {
+        var dataset = this.Instance.data.datasets[key];
+        if (dataset.label == title) {
+            this.Instance.data.labels = data.x;
+            dataset.data = data.y;
+            this.Instance.update();
+            return;
+        }
+    }
+}
+
+CoreUIGraph.prototype.AppendValue = function (title, data) {
+    if (this.Instance === null) {
+        return;
+    }
 
     for (key in this.Instance.data.datasets) {
         var dataset = this.Instance.data.datasets[key];
         if (dataset.label == title) {
-            dataset.data = data;
-            this.Instance.update('none');
+            dataset.data.push(data);
+            if (dataset.data.length > 100) {
+                dataset.data.shift();
+            }
             return;
         }
     }
+}
+
+CoreUIGraph.prototype.AppendIndex = function (data) {
+    if (this.Instance === null) {
+        return;
+    }
+
+    this.Instance.data.labels.push(data);
+    if (this.Instance.data.labels.length > 100) {
+        this.Instance.data.labels.shift();
+    }
+}
+
+CoreUIGraph.prototype.Refresh = function() {
+    this.Instance.update();
 }
 
 function CoreUIMatlabGraph (params) {
