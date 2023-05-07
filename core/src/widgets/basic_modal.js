@@ -6,13 +6,9 @@ function MksBasicModal (name) {
 		<div data-backdrop="static" class="modal fade bd-example-modal-[SIZE]" id="id_basic_modal_[NAME]" tabindex="-1" role="dialog" aria-labelledby="id_m_basic_modal_[NAME]_label" aria-hidden="true">
 			<div class="modal-dialog modal-[SIZE]" role="document">
 				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="id_m_basic_modal_[NAME]_label">[TITLE]</h5>
-						<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-						<span aria-hidden="true">&times;</span>
-					</div>
+					[TITLE_DATA]
 					<div id="id_basic_modal_[NAME]_content" class="modal-body">[CONTENT]</div>
-					<div id="id_basic_modal_[NAME]_footer" class="modal-footer">[FOOTER]</div>
+					[FOOTER_DATA]
 				</div>
 			</div>
 		</div>
@@ -25,6 +21,18 @@ function MksBasicModal (name) {
 			<span class="text-muted"><a href="#" onclick="$('#id_basic_modal_[NAME]').modal('hide');">Close</a></span>
 		</h6>
 	`;
+	this.Title = `
+		<div class="modal-header">
+			<h5 class="modal-title" id="id_m_basic_modal_[NAME]_label">[TITLE]</h5>
+			<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+			<span aria-hidden="true">&times;</span>
+		</div>
+	`;
+	this.Footer = `
+		<div id="id_basic_modal_[NAME]_footer" class="modal-footer">[FOOTER]</div>
+	`;
+	this.TitleDataEnabled = true;
+	this.FooterDataEnabled = true;
 	
 	return this;
 }
@@ -34,9 +42,22 @@ MksBasicModal.prototype.Build = function (modal_size) {
 	if (obj !== undefined && obj !== null) {
 		return;
 	}
-	
+
 	// Update modal UI objects
 	var html = this.BasicModalContainer;
+
+	if (this.TitleDataEnabled) {
+		html = html.split("[TITLE_DATA]").join(this.Title);
+	} else {
+		html = html.split("[TITLE_DATA]").join("");
+	}
+
+	if (this.FooterDataEnabled) {
+		html = html.split("[FOOTER_DATA]").join(this.Footer);
+	} else {
+		html = html.split("[FOOTER_DATA]").join("");
+	}
+
 	html = html.split("[SIZE]").join(modal_size);
 	html = html.split("[CONTENT]").join(this.BasicModalContent);
 	html = html.split("[FOOTER]").join(this.BasicModalFooter);

@@ -10,10 +10,19 @@ function Application(name) {
         console.log("OnUnexpectedDataArrived", packet);
     }
     this.API.ModulesLoadedCallback = function () {
-        console.log("Modules Loaded");
+        console.log("Modules Loaded", this);
+
         if (self.UserModulesLoadedCallback != null) {
             self.UserModulesLoadedCallback(self);
         }
+
+        // Get Application Name and Version
+        this.SendCustomCommand("get_app_info", {
+            "async": false
+        }, function(data, error) {
+            self.SetApplicationName(data.payload.name);
+            self.SetApplicationVersion(data.payload.version.application);
+        });
     }
     this.EventMapper = {};
     this.Adaptor    = null;
@@ -209,6 +218,10 @@ Application.prototype.LoadModule = function(name, callback) {
 Application.prototype.SetApplicationName = function(name) {
     document.getElementById("id_template_application_name").innerHTML = name;
     document.getElementById("id_template_application_title").innerHTML = name;
+}
+Application.prototype.SetApplicationVersion = function(version) {
+    console.log(version)
+    document.getElementById("id_template_application_version").innerHTML = version;
 }
 
 var MkSApplicationBuilder = (function () {
